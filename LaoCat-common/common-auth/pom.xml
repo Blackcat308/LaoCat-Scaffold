@@ -9,8 +9,10 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <description>安全相关</description>
     <artifactId>common-auth</artifactId>
+    <packaging>jar</packaging>
+
 
     <dependencies>
 

@@ -11,6 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>LaoCat-common</artifactId>
+    <description>公共服务</description>
 
     <modules>
         <module>common-core</module>
