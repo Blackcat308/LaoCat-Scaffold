@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -22,10 +23,10 @@ import java.util.Objects;
  * @date 2022/6/15
  */
 @Service
-@AllArgsConstructor
 public class UserServiceImpl implements UserDetailsService {
 
-    private final UserInfoFeignClient userInfoFeignClient;
+    @Autowired
+    private UserInfoFeignClient userInfoFeignClient;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

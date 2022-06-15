@@ -3,6 +3,7 @@ package org.laocat.controller;
 import lombok.AllArgsConstructor;
 import org.laocat.entity.UserInfo;
 import org.laocat.service.UserInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,10 +18,10 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("userInfo")
-@AllArgsConstructor
 public class UserInfoController {
 
-    private final UserInfoService userInfoService;
+    @Autowired
+    private UserInfoService userInfoService;
 
     /**
      * @return org.laocat.entity.UserInfo
