@@ -7,3 +7,11 @@
 ### maven 3.8.1
 
 ### nacos 2.0.1
+
+### redis 3.0.504
+
+
+>auth模块如果 jdk为17 则会报错不存在某Converter类 \
+>nacos版本最好为 2.0.1 和项目依赖匹配 \
+>redis maven 并无版本特定要求 \
+>mysql 8
