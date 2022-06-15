@@ -1,5 +1,3 @@
-server:
-  port: 1011
 spring:
   application:
     name: LaoCat-auth
