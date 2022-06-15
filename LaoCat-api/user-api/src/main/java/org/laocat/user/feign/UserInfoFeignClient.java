@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @date 2022/6/15
  * @description TODO
  */
-@Configuration
 @FeignClient(value = "LaoCat-user", contextId = "LaoCat-user")
 public interface UserInfoFeignClient {
 
