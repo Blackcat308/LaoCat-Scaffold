@@ -42,6 +42,9 @@ public class SecurityProperties {
      */
     private List<String> ignoreUrl;
 
+    public SecurityProperties() {
+    }
+
     public String getSecret() {
         return secret;
     }
@@ -96,9 +99,6 @@ public class SecurityProperties {
 
     public void setIgnoreUrl(List<String> ignoreUrl) {
         this.ignoreUrl = ignoreUrl;
-    }
-
-    public SecurityProperties() {
     }
 
     @Override

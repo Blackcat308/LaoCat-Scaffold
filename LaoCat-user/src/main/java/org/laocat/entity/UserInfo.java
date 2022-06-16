@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -30,12 +31,14 @@ public class UserInfo extends Model<UserInfo> implements Serializable {
      * 账号
      */
     @ApiModelProperty(value = "账号")
+    @NotBlank(message = "账号不能为空")
     private String username;
 
     /**
      * 密码
      */
     @ApiModelProperty(value = "密码")
+    @NotBlank(message = "密码不能为空")
     private String password;
 
 }

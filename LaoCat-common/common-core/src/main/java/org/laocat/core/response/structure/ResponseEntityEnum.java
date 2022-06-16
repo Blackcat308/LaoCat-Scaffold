@@ -27,17 +27,17 @@ public enum ResponseEntityEnum {
 
     private final String message;
 
+    ResponseEntityEnum(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
     public String value() {
         return code;
     }
 
     public String getMessage() {
         return message;
-    }
-
-    ResponseEntityEnum(String code, String message) {
-        this.code = code;
-        this.message = message;
     }
 
     @Override

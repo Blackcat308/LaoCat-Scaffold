@@ -27,6 +27,12 @@ public class UserServiceImpl implements UserDetailsService {
 
     private final UserInfoFeignClient userInfoFeignClient;
 
+    /**
+     * @return org.springframework.security.core.userdetails.UserDetails
+     * @author LaoCat
+     * @date 2022/6/16
+     * @description 根据用户名获取用户信息 注意用户名要全局唯一
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserInfoVO userInfo = userInfoFeignClient.loadUserInfoByUserName(username);
@@ -44,17 +50,17 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
     /**
+     * @return org.springframework.security.core.userdetails.UserDetails
      * @author LaoCat
      * @date 2022/6/16
      * @description 构造Spring Security UserDetails
-     * @return org.springframework.security.core.userdetails.UserDetails
      */
     private UserDetails buildUserDetails(UserInfoVO userInfo) {
         return UserInfoDetails.builder()
                 .id(userInfo.getId())
                 .username(userInfo.getUsername())
                 .password(userInfo.getPassword())
-                .roles(CollUtil.newArrayList("admin","ow"))
+                .roles(CollUtil.newArrayList("admin", "ow"))
                 .build();
     }
 

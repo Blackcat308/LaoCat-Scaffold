@@ -13,4 +13,11 @@ public interface UserInfoService extends IService<UserInfo> {
      * @param username
      */
     UserInfo loadUserInfoByUserName(String username);
+
+
+    /**
+     * @param userInfo
+     * @return
+     */
+    Boolean register(UserInfo userInfo);
 }

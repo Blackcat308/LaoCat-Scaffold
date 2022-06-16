@@ -1,15 +1,13 @@
 package org.laocat.controller;
 
-import lombok.AllArgsConstructor;
+import org.laocat.core.response.structure.ResponseEntity;
 import org.laocat.entity.UserInfo;
 import org.laocat.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * @author LaoCat
@@ -33,5 +31,22 @@ public class UserInfoController {
     public UserInfo loadUserInfoByUserName(@RequestParam String username) {
         return userInfoService.loadUserInfoByUserName(username);
     }
+
+    /**
+     * @return org.laocat.entity.UserInfo
+     * @author LaoCat
+     * @date 2022/6/15
+     * @description 新增用户
+     */
+    @PostMapping
+    public ResponseEntity<?> register(@Valid @RequestBody UserInfo userInfo) {
+        if (Objects.nonNull(this.loadUserInfoByUserName(userInfo.getUsername()))) {
+            throw new RuntimeException("该用户已存在");
+        }
+
+        userInfoService.register(userInfo);
+        return ResponseEntity.success();
+    }
+
 
 }

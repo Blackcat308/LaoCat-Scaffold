@@ -1,5 +1,6 @@
 package org.laocat.controller;
 
+import lombok.AllArgsConstructor;
 import org.laocat.auth.JwtRedisEnum;
 import org.laocat.auth.JwtUtil;
 import org.laocat.core.response.structure.ResponseEntity;
@@ -15,23 +16,20 @@ import static org.laocat.constant.AuthConstant.BEARER;
 /**
  * @author LaoCat
  * @date 2022/6/15
- * @description
+ * @description Token 相关
  */
 @RestController
-public class LogoutController {
-
+@AllArgsConstructor
+public class AuthController {
 
     private final StringRedisTemplate redisTemplate;
     private final JwtUtil jwtUtil;
 
-    public LogoutController(StringRedisTemplate redisTemplate, JwtUtil jwtUtil) {
-        this.redisTemplate = redisTemplate;
-        this.jwtUtil = jwtUtil;
-    }
-
     /**
-     * 退出登录
-     * 双清
+     * @return org.laocat.core.response.structure.ResponseEntity<?>
+     * @author LaoCat
+     * @date 2022/6/16
+     * @description 退出登录
      */
     @GetMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {

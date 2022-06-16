@@ -13,7 +13,7 @@ public class MD5Util {
 
 
     public static String encode(String password) {
-        password = String.join(password,SALT);
+        password = String.join(password, SALT);
         MessageDigest md5;
 
         try {

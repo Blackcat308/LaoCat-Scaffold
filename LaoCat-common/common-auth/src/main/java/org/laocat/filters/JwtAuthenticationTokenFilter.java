@@ -1,6 +1,5 @@
 package org.laocat.filters;
 
-import cn.hutool.log.StaticLog;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -147,7 +146,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 String newRandomKey = jwtUtil.getRandomKey();
                 // 重新生成token，放到header以及redis
                 String newAuthToken = jwtUtil.refreshToken(authToken, newRandomKey);
-                response.setHeader(AUTHORIZATION, String.join(BEARER,newAuthToken));
+                response.setHeader(AUTHORIZATION, String.join(BEARER, newAuthToken));
                 response.setHeader(RANDOM_KEY, newRandomKey);
                 redisTemplate.opsForValue().set(JwtRedisEnum.getTokenKey(username, newRandomKey),
                         newAuthToken,
@@ -187,7 +186,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         return ArrayUtils.addAll(corePermitUrls);
     }
 
-    private void responseEntity(HttpServletResponse response,int status,ResponseEntity<?> responseEntity) {
+    private void responseEntity(HttpServletResponse response, int status, ResponseEntity<?> responseEntity) {
         response.setContentType(CONTENT_TYPE);
         response.setStatus(status);
         try {

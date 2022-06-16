@@ -18,10 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 public class LaoCatFeignInterceptor implements RequestInterceptor {
 
     /**
+     * @return void
      * @author LaoCat
      * @date 2022/6/16
      * @description 对feign请求进行相关拦截 并传递请求头 授权并未覆盖其他模块。
-     * @return void
      */
     @Override
     public void apply(RequestTemplate requestTemplate) {
