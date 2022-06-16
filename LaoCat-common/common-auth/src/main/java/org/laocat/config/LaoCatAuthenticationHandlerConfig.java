@@ -1,4 +1,4 @@
-package org.laocat.auth;
+package org.laocat.config;
 
 import org.laocat.handler.LaoCatAuthenticationFailureHandler;
 import org.laocat.handler.LaoCatAuthenticationSuccessHandler;

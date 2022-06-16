@@ -1,5 +1,7 @@
-package org.laocat.authorize;
+package org.laocat.auth.manager;
 
+import lombok.AllArgsConstructor;
+import org.laocat.config.SecurityProperties;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Component;
@@ -11,17 +13,17 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Order(Byte.MIN_VALUE + 1)
+@AllArgsConstructor
 public class CoreAuthorizeConfigProvider implements AuthorizeConfigProvider {
+
+    private final SecurityProperties securityProperties;
 
     @Override
     public void config(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests().antMatchers(
-                // 读取配置文件，放开自定义路径的权限。
-                getPermitUrls()
-        ).permitAll();
+        httpSecurity.authorizeRequests().antMatchers(getPermitUrls()).permitAll();
     }
 
     public String[] getPermitUrls() {
-        return new String[]{"/login", "/authentication"};
+        return securityProperties.getIgnoreUrl().toArray(new String[0]);
     }
 }

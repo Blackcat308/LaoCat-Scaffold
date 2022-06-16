@@ -2,6 +2,8 @@ package org.laocat.auth;
 
 import java.security.MessageDigest;
 
+import static org.laocat.constant.AuthConstant.SALT;
+
 /**
  * @author LaoCat
  * @date 2022/6/15
@@ -9,10 +11,9 @@ import java.security.MessageDigest;
  */
 public class MD5Util {
 
-    private static final String SALT = "laocat";
 
     public static String encode(String password) {
-        password = password + SALT;
+        password = String.join(password,SALT);
         MessageDigest md5;
 
         try {
@@ -43,6 +44,6 @@ public class MD5Util {
     }
 
     public static void main(String[] args) {
-        System.out.println(MD5Util.encode("123456"));
+        System.out.println(MD5Util.encode("laocat"));
     }
 }

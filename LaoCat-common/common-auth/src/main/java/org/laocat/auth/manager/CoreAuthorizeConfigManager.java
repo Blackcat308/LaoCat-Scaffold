@@ -1,4 +1,4 @@
-package org.laocat.authorize;
+package org.laocat.auth.manager;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * @author LaoCat
  * @date 2022/6/15
- * @description
  */
 @Component
 public class CoreAuthorizeConfigManager implements AuthorizeConfigManager {

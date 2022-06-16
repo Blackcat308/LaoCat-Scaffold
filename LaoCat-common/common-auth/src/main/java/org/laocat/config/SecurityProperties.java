@@ -1,7 +1,9 @@
-package org.laocat.propertiess;
+package org.laocat.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 /**
  * @author LaoCat
@@ -35,6 +37,10 @@ public class SecurityProperties {
      * GET请求是否需要进行Authentication请求头校验，true：默认校验；false：不拦截GET请求
      */
     private boolean dischargedGetMethod;
+    /**
+     * 忽略授权的路径
+     */
+    private List<String> ignoreUrl;
 
     public String getSecret() {
         return secret;
@@ -84,6 +90,17 @@ public class SecurityProperties {
         this.dischargedGetMethod = dischargedGetMethod;
     }
 
+    public List<String> getIgnoreUrl() {
+        return ignoreUrl;
+    }
+
+    public void setIgnoreUrl(List<String> ignoreUrl) {
+        this.ignoreUrl = ignoreUrl;
+    }
+
+    public SecurityProperties() {
+    }
+
     @Override
     public String toString() {
         return "SecurityProperties{" +
@@ -93,8 +110,7 @@ public class SecurityProperties {
                 ", autoRefreshRemainingTime=" + autoRefreshRemainingTime +
                 ", allowMultiplePeople=" + allowMultiplePeople +
                 ", dischargedGetMethod=" + dischargedGetMethod +
+                ", ignoreUrl=" + ignoreUrl +
                 '}';
     }
-
-
 }

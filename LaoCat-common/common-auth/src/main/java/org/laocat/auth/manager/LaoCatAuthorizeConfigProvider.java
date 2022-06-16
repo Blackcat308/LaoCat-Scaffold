@@ -1,6 +1,6 @@
-package org.laocat.auth;
+package org.laocat.auth.manager;
 
-import org.laocat.authorize.AuthorizeConfigProvider;
+import org.laocat.filters.JwtAuthenticationTokenFilter;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;

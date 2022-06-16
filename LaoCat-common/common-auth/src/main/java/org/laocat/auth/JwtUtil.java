@@ -1,4 +1,4 @@
-package org.laocat.utils;
+package org.laocat.auth;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.date.DateTime;
@@ -8,10 +8,10 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.laocat.propertiess.SecurityProperties;
+import lombok.AllArgsConstructor;
+import org.laocat.config.SecurityProperties;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
@@ -26,10 +26,10 @@ import static org.laocat.constant.AuthConstant.*;
  * @description JWT 工具类
  */
 @Component
+@AllArgsConstructor
 public class JwtUtil {
 
-    @Resource
-    private SecurityProperties securityProperties;
+    private final SecurityProperties securityProperties;
 
     /**
      * @return java.lang.String

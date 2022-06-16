@@ -1,4 +1,4 @@
-package org.laocat.service;
+package org.laocat.auth.service;
 
 import lombok.Builder;
 import lombok.Data;

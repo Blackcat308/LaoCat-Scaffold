@@ -1,1 +1,11 @@
-#org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    org.laocat.auth.service.UserServiceImpl,\
+    org.laocat.config.ValidateSecurityCoreConfig,\
+    org.laocat.auth.manager.CoreAuthorizeConfigManager,\
+    org.laocat.auth.manager.CoreAuthorizeConfigProvider,\
+    org.laocat.auth.manager.LaoCatAuthorizeConfigProvider,\
+    org.laocat.auth.JwtUtil,\
+    org.laocat.config.LaoCatAuthenticationHandlerConfig,\
+    org.laocat.config.SecurityProperties,\
+    org.laocat.filters.JwtAuthenticationTokenFilter
+

@@ -1,4 +1,4 @@
-package org.laocat.authorize;
+package org.laocat.auth.manager;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
  * @date 2022/6/15
  * @description
  */
-public interface AuthorizeConfigProvider {
+public interface AuthorizeConfigManager {
 
     void config(HttpSecurity httpSecurity) throws Exception;
 }

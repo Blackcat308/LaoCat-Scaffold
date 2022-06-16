@@ -1,12 +1,10 @@
-package org.laocat.service;
+package org.laocat.auth.service;
 
 import cn.hutool.core.collection.CollUtil;
 import lombok.AllArgsConstructor;
 import org.laocat.auth.MD5Util;
-import org.laocat.core.utils.VoUtils;
 import org.laocat.user.feign.UserInfoFeignClient;
 import org.laocat.user.vo.UserInfoVO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,6 +14,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
+
+import static org.laocat.constant.AuthConstant.REQ_PARAM_PASSWORD_KEY;
 
 /**
  * @author LaoCat
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserDetailsService {
      */
     private String getPasswordByRequest() {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-        return request.getParameter("password");
+        return request.getParameter(REQ_PARAM_PASSWORD_KEY);
     }
 
 }

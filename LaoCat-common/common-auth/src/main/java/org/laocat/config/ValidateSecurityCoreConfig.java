@@ -1,8 +1,9 @@
-package org.laocat.auth;
+package org.laocat.config;
 
 
-import org.laocat.authorize.AuthorizeConfigManager;
-import org.laocat.service.UserServiceImpl;
+import org.laocat.auth.MD5Util;
+import org.laocat.auth.manager.AuthorizeConfigManager;
+import org.laocat.auth.service.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -50,6 +51,7 @@ public class ValidateSecurityCoreConfig extends WebSecurityConfigurerAdapter {
      * @throws Exception
      */
     @Bean
+    @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }

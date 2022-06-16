@@ -21,4 +21,41 @@ public interface AuthConstant {
      * 随机串长度
      */
     int RANDOM_STR_LENGTH = 6;
+
+    /**
+     *  请求体类型
+     */
+    String CONTENT_TYPE = "application/json;charset=UTF-8";
+
+    /**
+     *  授权请求头
+     */
+    String AUTHORIZATION = "Authorization";
+
+    /**
+     *  BEARER
+     */
+    String BEARER = "Bearer ";
+
+    /**
+     *  randomKey
+     */
+    String RANDOM_KEY = "randomKey";
+
+    /**
+     * 盐
+     */
+   String SALT = "laocat";
+
+   /**
+     * 退出路径
+     */
+   String LOGOUT_URL = "/logout";
+
+   /**
+     * 请求密码key
+     */
+   String REQ_PARAM_PASSWORD_KEY = "password";
+
+
 }
