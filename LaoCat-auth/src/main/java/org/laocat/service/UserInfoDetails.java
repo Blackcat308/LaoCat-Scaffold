@@ -1,5 +1,6 @@
 package org.laocat.service;
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,6 +16,7 @@ import java.util.List;
  * @description security 用户
  */
 @Data
+@Builder
 public class UserInfoDetails implements UserDetails {
 
     private String id;

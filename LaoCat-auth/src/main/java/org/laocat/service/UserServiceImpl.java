@@ -1,5 +1,6 @@
 package org.laocat.service;
 
+import cn.hutool.core.collection.CollUtil;
 import lombok.AllArgsConstructor;
 import org.laocat.auth.MD5Util;
 import org.laocat.core.utils.VoUtils;
@@ -9,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
@@ -23,10 +22,10 @@ import java.util.Objects;
  * @date 2022/6/15
  */
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private UserInfoFeignClient userInfoFeignClient;
+    private final UserInfoFeignClient userInfoFeignClient;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -40,8 +39,23 @@ public class UserServiceImpl implements UserDetailsService {
             throw new RuntimeException("密码不正确！");
         }
 
-        // 暂未存放权限相关信息  后续补充 TODO
-        return VoUtils.copy(userInfo, UserInfoDetails.class);
+        // 暂未补齐权限相关信息  后续补充 TODO
+        return this.buildUserDetails(userInfo);
+    }
+
+    /**
+     * @author LaoCat
+     * @date 2022/6/16
+     * @description 构造Spring Security UserDetails
+     * @return org.springframework.security.core.userdetails.UserDetails
+     */
+    private UserDetails buildUserDetails(UserInfoVO userInfo) {
+        return UserInfoDetails.builder()
+                .id(userInfo.getId())
+                .username(userInfo.getUsername())
+                .password(userInfo.getPassword())
+                .roles(CollUtil.newArrayList("admin","ow"))
+                .build();
     }
 
     /**

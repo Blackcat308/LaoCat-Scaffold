@@ -23,11 +23,12 @@
             <artifactId>common-data</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.laocat</groupId>
-            <artifactId>common-auth</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+<!--   覆盖后进行相应解注释     -->
+<!--        <dependency>-->
+<!--            <groupId>org.laocat</groupId>-->
+<!--            <artifactId>common-auth</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.laocat</groupId>
