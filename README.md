@@ -2,6 +2,9 @@
 
 LaoCat Spring Cloud 脚手架
 
+# 相关问题提 Issues！！！！ 或关注 浪老猫的Super小窝私聊
+
+
 ### 项目启动需准备
 
 * mysql 8.0
@@ -39,3 +42,11 @@ DB
 - 管理系统页面处理 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  0%
 - 处理登录授权流程 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  0%
 - 接入权限系统 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  0%
+
+
+# ❤ 感谢关注 ❤
+![img_1.png](img_1.png)
+
+- ❤ [CSND](https://blog.csdn.net/ProGram_BlackCat) ❤
+
+- ❤ [博客园](https://www.cnblogs.com/LaoCat/) ❤
