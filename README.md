@@ -1,3 +1,5 @@
+这几天点变动，暂停更新今天，周三恢复更新。
+
 # LaoCat-Spring-Cloud-Scaffold ![img.png](img.png)
 
 LaoCat Spring Cloud 脚手架
