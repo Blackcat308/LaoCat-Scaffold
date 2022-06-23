@@ -12,7 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LaoCatUserApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(LaoCatUserApplication.class, args);
+        SpringApplication springApplication = new SpringApplication(LaoCatUserApplication.class);
+        springApplication.setAllowBeanDefinitionOverriding(true);
+        springApplication.run(args);
     }
 
 }

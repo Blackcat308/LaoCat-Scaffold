@@ -51,6 +51,19 @@ public class ResponseEntity<T> implements Serializable {
      * @return org.laocat.core.response.structure.ResponseEntity<T>
      * @author LaoCat
      * @date 2022/6/16
+     * @description 失败 通用
+     */
+    public static <T> ResponseEntity<T> fail() {
+        ResponseEntity<T> serverResponseEntity = new ResponseEntity<>();
+        serverResponseEntity.setMessage(ResponseEntityEnum.FAIL.value());
+        serverResponseEntity.setCode(ResponseEntityEnum.FAIL.getMessage());
+        return serverResponseEntity;
+    }
+
+    /**
+     * @return org.laocat.core.response.structure.ResponseEntity<T>
+     * @author LaoCat
+     * @date 2022/6/16
      * @description 失败 无返回体
      */
     public static <T> ResponseEntity<T> fail(ResponseEntityEnum responseEnum) {
@@ -64,7 +77,7 @@ public class ResponseEntity<T> implements Serializable {
      * @return org.laocat.core.response.structure.ResponseEntity<T>
      * @author LaoCat
      * @date 2022/6/16
-     * @description 成功 有返回体
+     * @description 失败 有返回体
      */
     public static <T> ResponseEntity<T> fail(ResponseEntityEnum responseEnum, T data) {
         ResponseEntity<T> serverResponseEntity = new ResponseEntity<>();

@@ -7,5 +7,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     org.laocat.auth.JwtUtil,\
     org.laocat.config.LaoCatAuthenticationHandlerConfig,\
     org.laocat.config.SecurityProperties,\
-    org.laocat.filters.JwtAuthenticationTokenFilter
+    org.laocat.filters.JwtAuthenticationTokenFilter,\
+    org.laocat.handler.LaoCatPermissionEvaluator
 

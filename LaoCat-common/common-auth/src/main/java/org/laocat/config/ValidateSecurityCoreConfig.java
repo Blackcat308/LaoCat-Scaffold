@@ -4,15 +4,20 @@ package org.laocat.config;
 import org.laocat.auth.MD5Util;
 import org.laocat.auth.manager.AuthorizeConfigManager;
 import org.laocat.auth.service.UserServiceImpl;
+import org.laocat.handler.LaoCatPermissionEvaluator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.web.server.session.DefaultWebSessionManager;
 
 /**
  * @author LaoCat
@@ -20,6 +25,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  * @description 核心配置
  */
 @Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(jsr250Enabled = true,securedEnabled = true,prePostEnabled = true)
 public class ValidateSecurityCoreConfig extends WebSecurityConfigurerAdapter {
     /**
      * 失败处理器
@@ -73,12 +80,32 @@ public class ValidateSecurityCoreConfig extends WebSecurityConfigurerAdapter {
                 });
     }
 
+    /**
+     * @description: 注入自定义权限管理器
+     * @author: LaoCat
+     * @date: 2022/6/23
+     * @returnType: org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler
+     */
+    @Bean
+    public DefaultWebSecurityExpressionHandler webSecurityExpressionHandler() {
+        DefaultWebSecurityExpressionHandler securityExpressionHandler = new DefaultWebSecurityExpressionHandler();
+        securityExpressionHandler.setPermissionEvaluator(new LaoCatPermissionEvaluator());
+        return securityExpressionHandler;
+    }
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
                 .loginProcessingUrl("/authentication")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .and()
+                .logout()
+                .logoutUrl("/logout")
                 .and()
                 // 先加上这句话，否则登录的时候会出现403错误码，Could not verify the provided CSRF token because your session was not found.
                 .csrf().disable();

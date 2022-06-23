@@ -21,7 +21,12 @@ public enum ResponseEntityEnum {
     /**
      * 密码错误或验证失败
      */
-    PASSWORD_VERIFICATION_ERROR("A000400", "Incorrect password or verification failed");
+    PASSWORD_VERIFICATION_ERROR("A000400", "Incorrect password or verification failed"),
+
+    /**
+     * 失败
+     */
+    FAIL("111111","fail");
 
     private final String code;
 

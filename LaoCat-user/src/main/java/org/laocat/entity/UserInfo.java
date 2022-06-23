@@ -1,5 +1,7 @@
 package org.laocat.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
@@ -8,6 +10,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Description
@@ -41,4 +44,17 @@ public class UserInfo extends Model<UserInfo> implements Serializable {
     @NotBlank(message = "密码不能为空")
     private String password;
 
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
+    private Date gmtTime;
+
+    /**
+     * 修改时间
+     */
+    @ApiModelProperty(value = "修改时间")
+    @TableField(fill = FieldFill.UPDATE)
+    private Date modifyTime;
 }

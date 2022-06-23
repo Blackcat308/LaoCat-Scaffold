@@ -1,5 +1,6 @@
 package org.laocat.controller;
 
+import lombok.AllArgsConstructor;
 import org.laocat.core.response.structure.ResponseEntity;
 import org.laocat.entity.UserInfo;
 import org.laocat.service.UserInfoService;
@@ -16,10 +17,10 @@ import java.util.Objects;
  */
 @RestController
 @RequestMapping("userInfo")
+@AllArgsConstructor
 public class UserInfoController {
 
-    @Autowired
-    private UserInfoService userInfoService;
+    private final UserInfoService userInfoService;
 
     /**
      * @return org.laocat.entity.UserInfo
@@ -36,7 +37,7 @@ public class UserInfoController {
      * @return org.laocat.entity.UserInfo
      * @author LaoCat
      * @date 2022/6/15
-     * @description 新增用户
+     * @description 新增用户 == 注册用户
      */
     @PostMapping
     public ResponseEntity<?> register(@Valid @RequestBody UserInfo userInfo) {

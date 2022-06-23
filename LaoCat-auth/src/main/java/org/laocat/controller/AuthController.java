@@ -5,8 +5,10 @@ import org.laocat.auth.JwtRedisEnum;
 import org.laocat.auth.JwtUtil;
 import org.laocat.core.response.structure.ResponseEntity;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,7 +20,7 @@ import static org.laocat.constant.AuthConstant.BEARER;
  * @date 2022/6/15
  * @description Token 相关
  */
-@RestController
+@Controller
 @AllArgsConstructor
 public class AuthController {
 
@@ -32,6 +34,7 @@ public class AuthController {
      * @description 退出登录
      */
     @GetMapping("/logout")
+    @ResponseBody
     public ResponseEntity<?> logout(HttpServletRequest request) {
         String authHeader = request.getHeader(AUTHORIZATION);
         String authToken = authHeader.substring(BEARER.length());
@@ -43,5 +46,40 @@ public class AuthController {
         redisTemplate.delete(JwtRedisEnum.getAuthenticationKey(username, randomKey));
 
         return ResponseEntity.success();
+    }
+
+    /**
+     * @description: 跳转hello 页面
+     * @author: LaoCat
+     * @date: 2022/6/23
+     * @returnType: java.lang.String
+     */
+    @GetMapping("/hello")
+    public String hello() {
+        return "hello";
+    }
+
+    /**
+     * @description: 跳转login登录页面
+     * @author: LaoCat
+     * @date: 2022/6/23
+     * @returnType: java.lang.String
+     */
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    /**
+     * @description: 判断是否有自定义权限
+     * @author: LaoCat
+     * @date: 2022/6/23
+     * @returnType: org.laocat.core.response.structure.ResponseEntity<java.lang.String>
+     */
+    @GetMapping("/custom")
+    @ResponseBody
+    @PreAuthorize("hasRole('custom')")
+    public ResponseEntity<String> custom() {
+        return ResponseEntity.success("您有自定义权限！");
     }
 }
