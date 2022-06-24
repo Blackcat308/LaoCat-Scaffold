@@ -62,3 +62,8 @@ DB
 - ❤ [CSND](https://blog.csdn.net/ProGram_BlackCat) ❤
 
 - ❤ [博客园](https://www.cnblogs.com/LaoCat/) ❤
+
+
+---
+授权演示
+![target.png](a-doc/演示1.gif)

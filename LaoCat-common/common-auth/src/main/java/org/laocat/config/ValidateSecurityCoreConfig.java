@@ -5,6 +5,7 @@ import org.laocat.auth.MD5Util;
 import org.laocat.auth.manager.AuthorizeConfigManager;
 import org.laocat.auth.service.UserServiceImpl;
 import org.laocat.handler.LaoCatAccessDeniedHandler;
+import org.laocat.handler.LaoCatLogoutHandler;
 import org.laocat.handler.LaoCatPermissionEvaluator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,16 +44,21 @@ public class ValidateSecurityCoreConfig extends WebSecurityConfigurerAdapter {
      */
     private final LaoCatAccessDeniedHandler accessDeniedHandler;
     /**
+     * 登出处理器
+     */
+    private final LaoCatLogoutHandler logoutHandler;
+    /**
      * 封装管理器
      */
     private final AuthorizeConfigManager authorizeConfigManager;
 
     private final UserServiceImpl userService;
 
-    public ValidateSecurityCoreConfig(AuthenticationFailureHandler authenticationFailureHandler, AuthenticationSuccessHandler authenticationSuccessHandler,LaoCatAccessDeniedHandler accessDeniedHandler, AuthorizeConfigManager authorizeConfigManager, UserServiceImpl userService) {
+    public ValidateSecurityCoreConfig(AuthenticationFailureHandler authenticationFailureHandler, AuthenticationSuccessHandler authenticationSuccessHandler,LaoCatAccessDeniedHandler accessDeniedHandler,LaoCatLogoutHandler logoutHandler, AuthorizeConfigManager authorizeConfigManager, UserServiceImpl userService) {
         this.authenticationFailureHandler = authenticationFailureHandler;
         this.authenticationSuccessHandler = authenticationSuccessHandler;
         this.accessDeniedHandler = accessDeniedHandler;
+        this.logoutHandler = logoutHandler;
         this.authorizeConfigManager = authorizeConfigManager;
         this.userService = userService;
     }
@@ -112,7 +118,7 @@ public class ValidateSecurityCoreConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .and()
                 .logout()
-                .logoutUrl("/logout")
+                .addLogoutHandler(logoutHandler)
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler)

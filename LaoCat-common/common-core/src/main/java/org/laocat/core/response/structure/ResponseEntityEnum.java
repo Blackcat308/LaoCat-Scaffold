@@ -31,7 +31,11 @@ public enum ResponseEntityEnum {
     /**
      * 未授权   无权限
      */
-    NO_PERMISSION("A000403", "no permission");
+    NO_PERMISSION("A000403", "no permission"),
+    /**
+     * 未授权   无权限
+     */
+    LOGOUT_SUCCESS("A000000", "logout success");
 
     private final String code;
 

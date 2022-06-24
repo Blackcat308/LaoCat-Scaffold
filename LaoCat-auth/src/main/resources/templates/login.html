@@ -11,11 +11,11 @@
         <table>
             <tr>
                 <td>用户名:</td>
-                <td><input name="username" type="text"></td>
+                <td><input name="username" type="text" value="laocat"></td>
             </tr>
             <tr>
                 <td>密码:</td>
-                <td><input name="password" type="password"></td>
+                <td><input name="password" type="password" value="laocat"></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -25,11 +25,49 @@
             </tr>
         </table>
         <div>
-            <p id="token">暂无token</p>
+            <input type="text" id="token" value="暂无token" style="width: 1500px">
+            <button onclick="copyToken($('#token').val(),'#copy-token')" type="button" id="copy-token">复制token</button>
         </div>
+    </div>
+    <br>
+    <p>-----------------------------------------------------华丽的分割线--------------------------------------------------------</p>
+    <br>
+    <div>
+        <h3>检验角色是否有ADMIN权限</h3>
+        <input type="text" id="bearer" value="Bearer ">
+        <button onclick="copyBearer($('#bearer').val(),'#copy-bearer')" type="button" id="copy-bearer">复制Bearer</button>
+        <table>
+            <tr>
+                <td>token:</td>
+                <td><input name="token" type="text"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button onclick="checkRole()" type="button">校验</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <p>-----------------------------------------------------华丽的分割线--------------------------------------------------------</p>
+    <br>
+    <div>
+        <h3>退出登录</h3>
+        <table>
+            <tr>
+                <td>token:</td>
+                <td><input name="token" type="text"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button onclick="logout()" type="button">退出登录</button>
+                </td>
+            </tr>
+        </table>
     </div>
 </center>
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script type='text/javascript' src="https://cdn.staticfile.org/clipboard.js/1.5.15/clipboard.min.js"></script>
 <script>
     function login() {
         var username = $("input[name=username]").val();
@@ -48,7 +86,7 @@
             success: function (data, status, req) {
                 var token = "Bearer " + req.getResponseHeader("Authorization");
                 alert("登陆成功")
-                $("#token").text(token);
+                $("#token").val(token);
             },
             error: function (data, a, b) {
                 console.log(data.responseText);
@@ -57,23 +95,54 @@
         });
     }
 
-    function logout() {
-        var token = $("#token").val();
-        if (token === "暂无token") {
-            alert("暂无token不能退出登录");
+    /**
+     * 校验权限 生产勿用此方式
+     */
+    function checkRole() {
+        var token = $("input[name=token]").val();
+        if (token === "") {
+            alert("token不能为空");
             return;
         }
         $.ajax({
             type: "GET",
+            url: "/custom",
+            headers: {
+                "Authorization": token
+            },
+            jsonp: true,
+            success: function (data, status, req) {
+                if (status === "success") {
+                    alert(data.data)
+                }
+            },
+            error: function (data, a, b) {
+                console.log(data.responseText);
+                alert("校验出错")
+            }
+        });
+    }
+
+    /**
+     * 登出  生产勿用此方式
+     */
+    function logout() {
+        var token = $("input[name=token]").val();
+        if (token === "") {
+            alert("token不能为空");
+            return;
+        }
+        $.ajax({
+            type: "POST",
             url: "/logout",
             headers: {
                 "Authorization": token
             },
+            jsonp: true,
             success: function (data, status, req) {
-                console.log("data" + data)
-                console.log("status" + status)
-                if (status === "000000") {
+                if (status === "success") {
                     alert("退出成功")
+                    location.reload();
                 }
             },
             error: function (data, a, b) {
@@ -81,6 +150,35 @@
                 alert("退出失败")
             }
         });
+    }
+
+
+    function copyBearer(val,id) {
+        var copyValue = val;
+        console.log(val)
+        var clipboard = new Clipboard(id,{
+            text: function () {
+                return copyValue;
+            }
+        });
+
+        clipboard.on("success",function (e) {
+            alert('复制Bearer成功')
+        })
+    }
+
+    function copyToken(val,id) {
+        var copyValue = val;
+        console.log(val)
+        var clipboard = new Clipboard(id,{
+            text: function () {
+                return copyValue;
+            }
+        });
+
+        clipboard.on("success",function (e) {
+            alert('复制Token成功')
+        })
     }
 </script>
 </body>
