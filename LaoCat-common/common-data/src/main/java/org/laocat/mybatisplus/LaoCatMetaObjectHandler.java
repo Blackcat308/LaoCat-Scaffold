@@ -2,9 +2,12 @@ package org.laocat.mybatisplus;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @see MetaObjectHandler
@@ -12,7 +15,7 @@ import java.time.LocalDateTime;
  * @author: LaoCat
  * @date: 2022/6/23
  */
-@Component
+@Configuration
 public class LaoCatMetaObjectHandler implements MetaObjectHandler {
 
     /**
@@ -23,7 +26,7 @@ public class LaoCatMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.fillStrategy(metaObject,"gmtTime", LocalDateTime.now());
+        this.fillStrategy(metaObject,"gmtTime", Date.from(Instant.now()));
     }
 
     /**
@@ -34,6 +37,6 @@ public class LaoCatMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.fillStrategy(metaObject,"modifyTime",LocalDateTime.now());
+        this.fillStrategy(metaObject,"modifyTime",Date.from(Instant.now()));
     }
 }
