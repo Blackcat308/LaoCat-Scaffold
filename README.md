@@ -1,4 +1,4 @@
-# LaoCat-Spring-Cloud-Scaffold ![img.png](img.png)
+# LaoCat-Scaffold ![img.png](img.png)
 
 LaoCat Spring Cloud 脚手架
 
