@@ -7,7 +7,8 @@ import org.laocat.auth.JwtUtil;
 import org.laocat.config.SecurityProperties;
 import org.laocat.core.response.structure.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -28,16 +29,25 @@ import static org.laocat.constant.AuthConstant.*;
  */
 public class LaoCatAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
     @Autowired
-    private StringRedisTemplate redisTemplate;
+    private RedisTemplate redisTemplate;
     @Autowired
     private JwtUtil jwtUtil;
     @Autowired
     private SecurityProperties securityProperties;
 
+    /**
+     * @description: 构造token  but 因为用了 security permission
+     * @author: LaoCat
+     * @date: 2022/6/24
+     * @returnType: void
+     * @see SecurityExpressionRoot // #getAuthoritySet()
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         final String randomKey = jwtUtil.getRandomKey();
-        String username = ((UserDetails) authentication.getPrincipal()).getUsername();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
         final String token = jwtUtil.generateToken(username, randomKey);
 
         this.judgingMultiplePeople(username);
@@ -78,7 +88,7 @@ public class LaoCatAuthenticationSuccessHandler extends SavedRequestAwareAuthent
                 TimeUnit.SECONDS);
 
         redisTemplate.opsForValue().set(JwtRedisEnum.getAuthenticationKey(username, randomKey),
-                JSON.toJSONString(authentication),
+                authentication,
                 securityProperties.getEffectiveTime(),
                 TimeUnit.SECONDS
         );

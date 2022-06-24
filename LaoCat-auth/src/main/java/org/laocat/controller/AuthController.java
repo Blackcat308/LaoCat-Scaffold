@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.laocat.auth.JwtRedisEnum;
 import org.laocat.auth.JwtUtil;
 import org.laocat.core.response.structure.ResponseEntity;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +24,7 @@ import static org.laocat.constant.AuthConstant.BEARER;
 @AllArgsConstructor
 public class AuthController {
 
-    private final StringRedisTemplate redisTemplate;
+    private final RedisTemplate redisTemplate;
     private final JwtUtil jwtUtil;
 
     /**
@@ -49,17 +49,6 @@ public class AuthController {
     }
 
     /**
-     * @description: 跳转hello 页面
-     * @author: LaoCat
-     * @date: 2022/6/23
-     * @returnType: java.lang.String
-     */
-    @GetMapping("/hello")
-    public String hello() {
-        return "hello";
-    }
-
-    /**
      * @description: 跳转login登录页面
      * @author: LaoCat
      * @date: 2022/6/23
@@ -78,8 +67,8 @@ public class AuthController {
      */
     @GetMapping("/custom")
     @ResponseBody
-    @PreAuthorize("hasRole('custom')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> custom() {
-        return ResponseEntity.success("您有自定义权限！");
+        return ResponseEntity.success("您有admin权限！");
     }
 }

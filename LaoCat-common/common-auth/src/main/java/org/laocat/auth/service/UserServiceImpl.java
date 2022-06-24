@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserDetailsService {
                 .id(userInfo.getId())
                 .username(userInfo.getUsername())
                 .password(userInfo.getPassword())
-                .roles(CollUtil.newArrayList("admin", "ow"))
+                .roles(CollUtil.newArrayList("ROLE_ADMIN", "ROLE_CUSTOM"))
                 .build();
     }
 

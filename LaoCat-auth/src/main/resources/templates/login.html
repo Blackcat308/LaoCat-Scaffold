@@ -6,7 +6,7 @@
 </head>
 <body>
 <center>
-    <div >
+    <div>
         <h3>表单登录</h3>
         <table>
             <tr>
@@ -20,10 +20,13 @@
             <tr>
                 <td colspan="2">
                     <button onclick="login()" type="button">登录</button>
+                    <button onclick="logout()" type="button">退出登录</button>
                 </td>
             </tr>
         </table>
-
+        <div>
+            <p id="token">暂无token</p>
+        </div>
     </div>
 </center>
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
@@ -42,18 +45,10 @@
                 "username": username,
                 "password": password
             },
-            success: function (data,status,req) {
-                // 缺 Bearer TODO
-                console.log("------" + req.getResponseHeader("Authorization"));
-                var token = "Bearer" + req.getResponseHeader("Authorization");
+            success: function (data, status, req) {
+                var token = "Bearer " + req.getResponseHeader("Authorization");
                 alert("登陆成功")
-                setTimeout(function () {
-                    $.ajax({
-                        type: "GET",
-                        url: "/hello"
-                    });
-                    location.href = '/hello';
-                }, 1500);
+                $("#token").text(token);
             },
             error: function (data, a, b) {
                 console.log(data.responseText);
@@ -62,6 +57,31 @@
         });
     }
 
+    function logout() {
+        var token = $("#token").val();
+        if (token === "暂无token") {
+            alert("暂无token不能退出登录");
+            return;
+        }
+        $.ajax({
+            type: "GET",
+            url: "/logout",
+            headers: {
+                "Authorization": token
+            },
+            success: function (data, status, req) {
+                console.log("data" + data)
+                console.log("status" + status)
+                if (status === "000000") {
+                    alert("退出成功")
+                }
+            },
+            error: function (data, a, b) {
+                console.log(data.responseText);
+                alert("退出失败")
+            }
+        });
+    }
 </script>
 </body>
 </html>

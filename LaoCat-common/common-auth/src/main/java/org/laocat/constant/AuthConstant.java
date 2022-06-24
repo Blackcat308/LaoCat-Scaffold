@@ -57,5 +57,10 @@ public interface AuthConstant {
      */
     String REQ_PARAM_PASSWORD_KEY = "password";
 
+    /**
+     * 角色默认配置头
+     */
+    String DEFAULT_ROLE_PREFIX = "ROLE_";
+
 
 }

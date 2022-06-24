@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 127.0.0.1
+ Source Server         : 本地
  Source Server Type    : MySQL
- Source Server Version : 80012
+ Source Server Version : 80020
  Source Host           : 127.0.0.1:3306
  Source Schema         : laocat_nacos
 
  Target Server Type    : MySQL
- Target Server Version : 80012
+ Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 16/06/2022 16:40:08
+ Date: 24/06/2022 12:24:28
 */
 
 SET NAMES utf8mb4;
@@ -22,7 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `config_info`;
 CREATE TABLE `config_info`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
   `data_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'data_id',
   `group_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
   `content` longtext CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'content',
@@ -40,22 +40,22 @@ CREATE TABLE `config_info`  (
   `c_schema` text CHARACTER SET utf8 COLLATE utf8_bin NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_configinfo_datagrouptenant`(`data_id`, `group_id`, `tenant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_info' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_info' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of config_info
 -- ----------------------------
-INSERT INTO `config_info` VALUES (3, 'LaoCat-auth-dev.yml', 'DEFAULT_GROUP', 'server:\n  port: 1011', '63a33259c40105a1d9c9dbbf7f784648', '2022-06-14 07:52:06', '2022-06-16 05:51:11', NULL, '127.0.0.1', '', '', '', '', '', 'yaml', '');
+INSERT INTO `config_info` VALUES (3, 'LaoCat-auth-dev.yml', 'DEFAULT_GROUP', 'server:\n  port: 1011\n\nspring:\n  mvc:\n    static-path-pattern: /**\n  thymeleaf:\n    prefix: classpath:/templates/\n    suffix: .html\n    cache: false', '75e2c7dbd781210ba011d21099be98ad', '2022-06-14 07:52:06', '2022-06-23 08:36:13', NULL, '127.0.0.1', '', '', '', '', '', 'yaml', '');
 INSERT INTO `config_info` VALUES (4, 'LaoCat-getaway-dev.yml', 'DEFAULT_GROUP', 'server:\n  port: 2000\n\nspring:\n  cloud:\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: LaoCat-auth\n          uri: lb://LaoCat-auth\n          predicates:\n            - Path=/laocat_auth/**\n        - id: LaoCat-user\n          uri: lb://LaoCat-user\n          predicates:\n            - Path=/laocat_user/**\n\n    globalcors:\n        cors-configurations:\n          \'[/**]\':\n            allow-credentials: true\n            allowed-headers: \"*\"\n            max-age: 3600\n            allowedMethods:\n              - GET\n              - POST\n              - PUT\n              - OPTIONS\n              - DELETE', 'f441614f6347d2596c04c61783311e80', '2022-06-14 07:53:03', '2022-06-16 05:55:29', NULL, '127.0.0.1', '', '', '', '', '', 'yaml', '');
 INSERT INTO `config_info` VALUES (11, 'LaoCat-user-dev.yml', 'DEFAULT_GROUP', 'server:\n  port: 1012\n\nspring:\n  datasource:\n    username: root\n    password: 123456\n    driver-class-name: com.mysql.cj.jdbc.Driver\n    url: jdbc:mysql://127.0.0.1:3306/laocat_user?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8&rewriteBatchedStatements=true\n    type: com.alibaba.druid.pool.DruidDataSource\n    druid:\n      initial-size: 5\n      min-idle: 5\n      max-active: 20\n      max-wait: 600000\n      min-evictable-idle-time-millis: 300000\n      validation-query: SELECT 1 FROM DUAL\n      test-while-idle: true\n      test-on-borrow: false\n      test-on-return: false\n      time-between-eviction-runs-millis: 60000\n\nmybatis-plus:\n  mapper-locations: classpath:mapper/*.xml\n  global-config:\n    banner: false\n    db-config:\n      id-type: id_worker_str\n      logic-delete-field: deleted\n      logic-delete-value: 1\n      logic-not-delete-value: 0\n  configuration:\n    call-setters-on-nulls: true\n#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl', '667e41c9a75c46d18d09bef4c64ae02f', '2022-06-15 08:24:59', '2022-06-16 05:55:45', NULL, '127.0.0.1', '', '', '', '', '', 'yaml', '');
-INSERT INTO `config_info` VALUES (20, 'application-dev.yml', 'DEFAULT_GROUP', 'security:\n  jwt:\n    secret: defaultSecret\n    effectiveTime: 3600\n    uniqueTag: laocat\n    autoRefreshRemainingTime: 600\n    allowMultiplePeople: false\n    dischargedGetMethod: true\n    ignoreUrl: \n        - /login\n        - /authentication\n        - /userInfo/**\n        - /favicon.ico\n\nlogging:\n  level:\n    org.laocat: debug\n  file:\n    name: /logs/${spring.application.name}/${spring.application.name}.log\n  logback:\n    rollingpolicy:\n      max-file-size: 20MB\n      max-history: 365\n      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz\n  pattern:\n    console: \"%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{NAME} %clr(:){faint} %X{IP} %clr(:){faint} %X{REQUEST_ID} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    file: \"%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{NAME} : %X{IP} : %X{REQUEST_ID} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    dateformat: \"yyyy-MM-dd HH:mm:ss.SSS\"', '6347cadabde9351f8a6be6d4c59c3eec', '2022-06-16 05:50:50', '2022-06-16 07:46:30', NULL, '127.0.0.1', '', '', '', '', '', 'yaml', '');
+INSERT INTO `config_info` VALUES (20, 'application-dev.yml', 'DEFAULT_GROUP', 'security:\n  jwt:\n    secret: defaultSecret\n    effectiveTime: 3600\n    uniqueTag: laocat\n    autoRefreshRemainingTime: 600\n    allowMultiplePeople: false\n    dischargedGetMethod: true\n    ignoreUrl: \n        - /login\n        - /authentication\n        - /userInfo/**\n        - /favicon.ico\n        - /hello\n\nlogging:\n  level:\n    org.laocat: debug\n  file:\n    name: /logs/${spring.application.name}/${spring.application.name}.log\n  logback:\n    rollingpolicy:\n      max-file-size: 20MB\n      max-history: 365\n      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz\n  pattern:\n    console: \"%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{NAME} %clr(:){faint} %X{IP} %clr(:){faint} %X{REQUEST_ID} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    file: \"%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{NAME} : %X{IP} : %X{REQUEST_ID} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    dateformat: \"yyyy-MM-dd HH:mm:ss.SSS\"', '13785eee7008eda3f564b202ae33505e', '2022-06-16 05:50:50', '2022-06-24 01:31:52', NULL, '127.0.0.1', '', '', '', '', '', 'yaml', '');
 
 -- ----------------------------
 -- Table structure for config_info_aggr
 -- ----------------------------
 DROP TABLE IF EXISTS `config_info_aggr`;
 CREATE TABLE `config_info_aggr`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
   `data_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'data_id',
   `group_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'group_id',
   `datum_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'datum_id',
@@ -65,7 +65,7 @@ CREATE TABLE `config_info_aggr`  (
   `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT '租户字段',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_configinfoaggr_datagrouptenantdatum`(`data_id`, `group_id`, `tenant_id`, `datum_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '增加租户字段' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '增加租户字段' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of config_info_aggr
@@ -76,7 +76,7 @@ CREATE TABLE `config_info_aggr`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `config_info_beta`;
 CREATE TABLE `config_info_beta`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
   `data_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'data_id',
   `group_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'group_id',
   `app_name` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'app_name',
@@ -90,7 +90,7 @@ CREATE TABLE `config_info_beta`  (
   `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT '租户字段',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_configinfobeta_datagrouptenant`(`data_id`, `group_id`, `tenant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_info_beta' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_info_beta' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of config_info_beta
@@ -101,7 +101,7 @@ CREATE TABLE `config_info_beta`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `config_info_tag`;
 CREATE TABLE `config_info_tag`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
   `data_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'data_id',
   `group_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'group_id',
   `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT 'tenant_id',
@@ -115,7 +115,7 @@ CREATE TABLE `config_info_tag`  (
   `src_ip` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'source ip',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_configinfotag_datagrouptenanttag`(`data_id`, `group_id`, `tenant_id`, `tag_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_info_tag' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_info_tag' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of config_info_tag
@@ -126,17 +126,17 @@ CREATE TABLE `config_info_tag`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `config_tags_relation`;
 CREATE TABLE `config_tags_relation`  (
-  `id` bigint(20) NOT NULL COMMENT 'id',
+  `id` bigint NOT NULL COMMENT 'id',
   `tag_name` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'tag_name',
   `tag_type` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'tag_type',
   `data_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'data_id',
   `group_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'group_id',
   `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT 'tenant_id',
-  `nid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nid` bigint NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`nid`) USING BTREE,
   UNIQUE INDEX `uk_configtagrelation_configidtag`(`id`, `tag_name`, `tag_type`) USING BTREE,
   INDEX `idx_tenant_id`(`tenant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_tag_relation' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_tag_relation' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of config_tags_relation
@@ -147,19 +147,19 @@ CREATE TABLE `config_tags_relation`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `group_capacity`;
 CREATE TABLE `group_capacity`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `group_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'Group ID，空字符表示整个集群',
-  `quota` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '配额，0表示使用默认值',
-  `usage` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '使用量',
-  `max_size` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '单个配置大小上限，单位为字节，0表示使用默认值',
-  `max_aggr_count` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '聚合子配置最大个数，，0表示使用默认值',
-  `max_aggr_size` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '单个聚合数据的子配置大小上限，单位为字节，0表示使用默认值',
-  `max_history_count` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '最大变更历史数量',
+  `quota` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '配额，0表示使用默认值',
+  `usage` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '使用量',
+  `max_size` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '单个配置大小上限，单位为字节，0表示使用默认值',
+  `max_aggr_count` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '聚合子配置最大个数，，0表示使用默认值',
+  `max_aggr_size` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '单个聚合数据的子配置大小上限，单位为字节，0表示使用默认值',
+  `max_history_count` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '最大变更历史数量',
   `gmt_create` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `gmt_modified` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_group_id`(`group_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '集群、各Group容量信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '集群、各Group容量信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of group_capacity
@@ -170,8 +170,8 @@ CREATE TABLE `group_capacity`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `his_config_info`;
 CREATE TABLE `his_config_info`  (
-  `id` bigint(64) UNSIGNED NOT NULL,
-  `nid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` bigint UNSIGNED NOT NULL,
+  `nid` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `data_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `group_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `app_name` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'app_name',
@@ -187,7 +187,7 @@ CREATE TABLE `his_config_info`  (
   INDEX `idx_gmt_create`(`gmt_create`) USING BTREE,
   INDEX `idx_gmt_modified`(`gmt_modified`) USING BTREE,
   INDEX `idx_did`(`data_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '多租户改造' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '多租户改造' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of his_config_info
@@ -222,6 +222,17 @@ INSERT INTO `his_config_info` VALUES (20, 27, 'application-dev.yml', 'DEFAULT_GR
 INSERT INTO `his_config_info` VALUES (20, 28, 'application-dev.yml', 'DEFAULT_GROUP', '', 'security:\n  jwt:\n    secret: defaultSecret\n    effectiveTime: 3600\n    uniqueTag: laocat\n    autoRefreshRemainingTime: 600\n    allowMultiplePeople: false\n    dischargedGetMethod: true\n    ignoreUrl: \n        - /login\n        - /authentication\n        - /userInfo/userInfoByUserName\n\nlogging:\n  level:\n    org.laocat: debug\n  file:\n    name: /logs/${spring.application.name}/${spring.application.name}.log\n  logback:\n    rollingpolicy:\n      max-file-size: 20MB\n      max-history: 365\n      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz\n  pattern:\n    console: \"%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{NAME} %clr(:){faint} %X{IP} %clr(:){faint} %X{REQUEST_ID} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    file: \"%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{NAME} : %X{IP} : %X{REQUEST_ID} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    dateformat: \"yyyy-MM-dd HH:mm:ss.SSS\"', 'e16264d104ab43640e221a9be9c76614', '2022-06-16 14:46:53', '2022-06-16 06:46:53', NULL, '127.0.0.1', 'U', '');
 INSERT INTO `his_config_info` VALUES (20, 29, 'application-dev.yml', 'DEFAULT_GROUP', '', 'security:\n  jwt:\n    secret: defaultSecret\n    effectiveTime: 3600\n    uniqueTag: laocat\n    autoRefreshRemainingTime: 600\n    allowMultiplePeople: false\n    dischargedGetMethod: true\n    ignoreUrl: \n        - /login\n        - /authentication\n        - /userInfo/userInfoByUserName\n        - /favicon.ico\n\nlogging:\n  level:\n    org.laocat: debug\n  file:\n    name: /logs/${spring.application.name}/${spring.application.name}.log\n  logback:\n    rollingpolicy:\n      max-file-size: 20MB\n      max-history: 365\n      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz\n  pattern:\n    console: \"%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{NAME} %clr(:){faint} %X{IP} %clr(:){faint} %X{REQUEST_ID} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    file: \"%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{NAME} : %X{IP} : %X{REQUEST_ID} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    dateformat: \"yyyy-MM-dd HH:mm:ss.SSS\"', '0acd77822f3a5447615df46486236649', '2022-06-16 15:08:14', '2022-06-16 07:08:14', NULL, '127.0.0.1', 'U', '');
 INSERT INTO `his_config_info` VALUES (20, 30, 'application-dev.yml', 'DEFAULT_GROUP', '', 'security:\n  jwt:\n    secret: defaultSecret\n    effectiveTime: 3600\n    uniqueTag: laocat\n    autoRefreshRemainingTime: 600\n    allowMultiplePeople: false\n    dischargedGetMethod: true\n    ignoreUrl: \n        - /login\n        - /authentication\n        - /userInfo/userInfoByUserName\n        - /favicon.ico\n\nlogging:\n  level:\n    org.laocat: debug\n  file:\n    name: /logs/${spring.application.name}/${spring.application.name}.log\n  logback:\n    rollingpolicy:\n      max-file-size: 20MB\n      max-history: 365\n      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz\n  pattern:\n    console: \"%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{NAME} %clr(:){faint} %X{IP} %clr(:){faint} %X{REQUEST_ID} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    file: \"%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{NAME} : %X{IP} : %X{REQUEST_ID} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    dateformat: \"yyyy-MM-dd HH:mm:ss.SSS\"', '0acd77822f3a5447615df46486236649', '2022-06-16 15:46:30', '2022-06-16 07:46:30', NULL, '127.0.0.1', 'U', '');
+INSERT INTO `his_config_info` VALUES (20, 31, 'application-dev.yml', 'DEFAULT_GROUP', '', 'security:\n  jwt:\n    secret: defaultSecret\n    effectiveTime: 3600\n    uniqueTag: laocat\n    autoRefreshRemainingTime: 600\n    allowMultiplePeople: false\n    dischargedGetMethod: true\n    ignoreUrl: \n        - /login\n        - /authentication\n        - /userInfo/**\n        - /favicon.ico\n\nlogging:\n  level:\n    org.laocat: debug\n  file:\n    name: /logs/${spring.application.name}/${spring.application.name}.log\n  logback:\n    rollingpolicy:\n      max-file-size: 20MB\n      max-history: 365\n      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz\n  pattern:\n    console: \"%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{NAME} %clr(:){faint} %X{IP} %clr(:){faint} %X{REQUEST_ID} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    file: \"%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{NAME} : %X{IP} : %X{REQUEST_ID} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    dateformat: \"yyyy-MM-dd HH:mm:ss.SSS\"', '6347cadabde9351f8a6be6d4c59c3eec', '2022-06-23 16:05:29', '2022-06-23 08:05:30', NULL, '127.0.0.1', 'U', '');
+INSERT INTO `his_config_info` VALUES (3, 32, 'LaoCat-auth-dev.yml', 'DEFAULT_GROUP', '', 'server:\n  port: 1011', '63a33259c40105a1d9c9dbbf7f784648', '2022-06-23 16:11:27', '2022-06-23 08:11:28', NULL, '127.0.0.1', 'U', '');
+INSERT INTO `his_config_info` VALUES (3, 33, 'LaoCat-auth-dev.yml', 'DEFAULT_GROUP', '', 'server:\n  port: 1011\n\nspring:\n  mvc:\n    static-path-pattern: /**\n  thymeleaf:\n    prefix: classpath:/templates/\n    suffix: .html\n    cache: false', '75e2c7dbd781210ba011d21099be98ad', '2022-06-23 16:34:44', '2022-06-23 08:34:45', NULL, '127.0.0.1', 'U', '');
+INSERT INTO `his_config_info` VALUES (3, 34, 'LaoCat-auth-dev.yml', 'DEFAULT_GROUP', '', 'server:\n  port: 1011\n\nspring:\n  mvc:\n    static-path-pattern: /**\n  thymeleaf:\n    prefix: classpath:/templates/\n    suffix: .html\n    cache: false\n  main:\n    allow-bean-definition-overriding: true', '8c3e3ca7889caf8c0d69d8cddc792a45', '2022-06-23 16:36:12', '2022-06-23 08:36:13', NULL, '127.0.0.1', 'U', '');
+INSERT INTO `his_config_info` VALUES (20, 35, 'application-dev.yml', 'DEFAULT_GROUP', '', 'security:\n  jwt:\n    secret: defaultSecret\n    effectiveTime: 3600\n    uniqueTag: laocat\n    autoRefreshRemainingTime: 600\n    allowMultiplePeople: false\n    dischargedGetMethod: true\n    ignoreUrl: \n        - /login\n        - /authentication\n        - /userInfo/**\n        - /favicon.ico\n        - /logout\n\nlogging:\n  level:\n    org.laocat: debug\n  file:\n    name: /logs/${spring.application.name}/${spring.application.name}.log\n  logback:\n    rollingpolicy:\n      max-file-size: 20MB\n      max-history: 365\n      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz\n  pattern:\n    console: \"%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{NAME} %clr(:){faint} %X{IP} %clr(:){faint} %X{REQUEST_ID} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    file: \"%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{NAME} : %X{IP} : %X{REQUEST_ID} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    dateformat: \"yyyy-MM-dd HH:mm:ss.SSS\"', '4a2acf82ad6ecc96f3ddf9e324ce72e1', '2022-06-23 16:36:51', '2022-06-23 08:36:52', NULL, '127.0.0.1', 'U', '');
+INSERT INTO `his_config_info` VALUES (20, 36, 'application-dev.yml', 'DEFAULT_GROUP', '', 'spring:\n  main:\n    allow-bean-definition-overriding: true\n    \nsecurity:\n  jwt:\n    secret: defaultSecret\n    effectiveTime: 3600\n    uniqueTag: laocat\n    autoRefreshRemainingTime: 600\n    allowMultiplePeople: false\n    dischargedGetMethod: true\n    ignoreUrl: \n        - /login\n        - /authentication\n        - /userInfo/**\n        - /favicon.ico\n        - /logout\n\nlogging:\n  level:\n    org.laocat: debug\n  file:\n    name: /logs/${spring.application.name}/${spring.application.name}.log\n  logback:\n    rollingpolicy:\n      max-file-size: 20MB\n      max-history: 365\n      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz\n  pattern:\n    console: \"%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{NAME} %clr(:){faint} %X{IP} %clr(:){faint} %X{REQUEST_ID} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    file: \"%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{NAME} : %X{IP} : %X{REQUEST_ID} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    dateformat: \"yyyy-MM-dd HH:mm:ss.SSS\"', 'dfc1e00df04bba5e19a908f7fc39782b', '2022-06-23 16:37:54', '2022-06-23 08:37:55', NULL, '127.0.0.1', 'U', '');
+INSERT INTO `his_config_info` VALUES (20, 37, 'application-dev.yml', 'DEFAULT_GROUP', '', 'spring:\n  main:\n    allow-bean-definition-overriding: true\n    \nsecurity:\n  jwt:\n    secret: defaultSecret\n    effectiveTime: 3600\n    uniqueTag: laocat\n    autoRefreshRemainingTime: 600\n    allowMultiplePeople: false\n    dischargedGetMethod: true\n    ignoreUrl: \n        - /login\n        - /authentication\n        - /userInfo/**\n        - /favicon.ico\n        - /logout\n\nlogging:\n  level:\n    org.laocat: debug\n  file:\n    name: /logs/${spring.application.name}/${spring.application.name}.log\n  logback:\n    rollingpolicy:\n      max-file-size: 20MB\n      max-history: 365\n      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz\n  pattern:\n    console: \"%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{NAME} %clr(:){faint} %X{IP} %clr(:){faint} %X{REQUEST_ID} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    file: \"%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{NAME} : %X{IP} : %X{REQUEST_ID} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    dateformat: \"yyyy-MM-dd HH:mm:ss.SSS\"', 'dfc1e00df04bba5e19a908f7fc39782b', '2022-06-23 16:39:17', '2022-06-23 08:39:17', NULL, '127.0.0.1', 'U', '');
+INSERT INTO `his_config_info` VALUES (20, 38, 'application-dev.yml', 'DEFAULT_GROUP', '', 'spring:\n  main:\n    allow-bean-definition-overriding: true\n    \nsecurity:\n  jwt:\n    secret: defaultSecret\n    effectiveTime: 3600\n    uniqueTag: laocat\n    autoRefreshRemainingTime: 600\n    allowMultiplePeople: false\n    dischargedGetMethod: true\n    ignoreUrl: \n        - /login\n        - /authentication\n        - /userInfo/**\n        - /favicon.ico\n        - /logout\n\nlogging:\n  level:\n    org.laocat: debug\n  file:\n    name: /logs/${spring.application.name}/${spring.application.name}.log\n  logback:\n    rollingpolicy:\n      max-file-size: 20MB\n      max-history: 365\n      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz\n  pattern:\n    console: \"%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{NAME} %clr(:){faint} %X{IP} %clr(:){faint} %X{REQUEST_ID} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    file: \"%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{NAME} : %X{IP} : %X{REQUEST_ID} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    dateformat: \"yyyy-MM-dd HH:mm:ss.SSS\"', 'dfc1e00df04bba5e19a908f7fc39782b', '2022-06-23 16:45:33', '2022-06-23 08:45:33', NULL, '127.0.0.1', 'U', '');
+INSERT INTO `his_config_info` VALUES (20, 39, 'application-dev.yml', 'DEFAULT_GROUP', '', 'security:\n  jwt:\n    secret: defaultSecret\n    effectiveTime: 3600\n    uniqueTag: laocat\n    autoRefreshRemainingTime: 600\n    allowMultiplePeople: false\n    dischargedGetMethod: true\n    ignoreUrl: \n        - /login\n        - /authentication\n        - /userInfo/**\n        - /favicon.ico\n        - /logout\n\nlogging:\n  level:\n    org.laocat: debug\n  file:\n    name: /logs/${spring.application.name}/${spring.application.name}.log\n  logback:\n    rollingpolicy:\n      max-file-size: 20MB\n      max-history: 365\n      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz\n  pattern:\n    console: \"%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{NAME} %clr(:){faint} %X{IP} %clr(:){faint} %X{REQUEST_ID} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    file: \"%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{NAME} : %X{IP} : %X{REQUEST_ID} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    dateformat: \"yyyy-MM-dd HH:mm:ss.SSS\"', '4a2acf82ad6ecc96f3ddf9e324ce72e1', '2022-06-23 17:12:57', '2022-06-23 09:12:57', NULL, '127.0.0.1', 'U', '');
+INSERT INTO `his_config_info` VALUES (20, 40, 'application-dev.yml', 'DEFAULT_GROUP', '', 'security:\n  jwt:\n    secret: defaultSecret\n    effectiveTime: 3600\n    uniqueTag: laocat\n    autoRefreshRemainingTime: 600\n    allowMultiplePeople: false\n    dischargedGetMethod: true\n    ignoreUrl: \n        - /login\n        - /authentication\n        - /userInfo/**\n        - /favicon.ico\n        - /logout\n        - /hello\n\nlogging:\n  level:\n    org.laocat: debug\n  file:\n    name: /logs/${spring.application.name}/${spring.application.name}.log\n  logback:\n    rollingpolicy:\n      max-file-size: 20MB\n      max-history: 365\n      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz\n  pattern:\n    console: \"%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{NAME} %clr(:){faint} %X{IP} %clr(:){faint} %X{REQUEST_ID} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    file: \"%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{NAME} : %X{IP} : %X{REQUEST_ID} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    dateformat: \"yyyy-MM-dd HH:mm:ss.SSS\"', 'd349eb9606b6c9696380f4832818c22d', '2022-06-24 09:24:25', '2022-06-24 01:24:25', NULL, '127.0.0.1', 'U', '');
+INSERT INTO `his_config_info` VALUES (20, 41, 'application-dev.yml', 'DEFAULT_GROUP', '', 'security:\n  jwt:\n    secret: defaultSecret\n    effectiveTime: 3600\n    uniqueTag: laocat\n    autoRefreshRemainingTime: 600\n    allowMultiplePeople: false\n    dischargedGetMethod: true\n    ignoreUrl: \n        - /login\n        - /authentication\n        - /userInfo/**\n        - /favicon.ico\n        - /hello\n\nlogging:\n  level:\n    org.laocat: debug\n  file:\n    name: /logs/${spring.application.name}/${spring.application.name}.log\n  logback:\n    rollingpolicy:\n      max-file-size: 20MB\n      max-history: 365\n      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz\n  pattern:\n    console: \"%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{NAME} %clr(:){faint} %X{IP} %clr(:){faint} %X{REQUEST_ID} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    file: \"%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %X{NAME} : %X{IP} : %X{REQUEST_ID} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}\"\n    dateformat: \"yyyy-MM-dd HH:mm:ss.SSS\"', '13785eee7008eda3f564b202ae33505e', '2022-06-24 09:31:51', '2022-06-24 01:31:52', NULL, '127.0.0.1', 'U', '');
 
 -- ----------------------------
 -- Table structure for permissions
@@ -232,7 +243,7 @@ CREATE TABLE `permissions`  (
   `resource` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `action` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   UNIQUE INDEX `uk_role_permission`(`role`, `resource`, `action`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of permissions
@@ -246,7 +257,7 @@ CREATE TABLE `roles`  (
   `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `role` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   UNIQUE INDEX `idx_user_role`(`username`, `role`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of roles
@@ -258,19 +269,19 @@ INSERT INTO `roles` VALUES ('nacos', 'ROLE_ADMIN');
 -- ----------------------------
 DROP TABLE IF EXISTS `tenant_capacity`;
 CREATE TABLE `tenant_capacity`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'Tenant ID',
-  `quota` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '配额，0表示使用默认值',
-  `usage` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '使用量',
-  `max_size` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '单个配置大小上限，单位为字节，0表示使用默认值',
-  `max_aggr_count` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '聚合子配置最大个数',
-  `max_aggr_size` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '单个聚合数据的子配置大小上限，单位为字节，0表示使用默认值',
-  `max_history_count` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '最大变更历史数量',
+  `quota` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '配额，0表示使用默认值',
+  `usage` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '使用量',
+  `max_size` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '单个配置大小上限，单位为字节，0表示使用默认值',
+  `max_aggr_count` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '聚合子配置最大个数',
+  `max_aggr_size` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '单个聚合数据的子配置大小上限，单位为字节，0表示使用默认值',
+  `max_history_count` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '最大变更历史数量',
   `gmt_create` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `gmt_modified` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_tenant_id`(`tenant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '租户容量信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '租户容量信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tenant_capacity
@@ -281,18 +292,18 @@ CREATE TABLE `tenant_capacity`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `tenant_info`;
 CREATE TABLE `tenant_info`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
   `kp` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'kp',
   `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT 'tenant_id',
   `tenant_name` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT 'tenant_name',
   `tenant_desc` varchar(256) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'tenant_desc',
   `create_source` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'create_source',
-  `gmt_create` bigint(20) NOT NULL COMMENT '创建时间',
-  `gmt_modified` bigint(20) NOT NULL COMMENT '修改时间',
+  `gmt_create` bigint NOT NULL COMMENT '创建时间',
+  `gmt_modified` bigint NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_tenant_info_kptenantid`(`kp`, `tenant_id`) USING BTREE,
   INDEX `idx_tenant_id`(`tenant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'tenant_info' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'tenant_info' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tenant_info
@@ -307,7 +318,7 @@ CREATE TABLE `users`  (
   `password` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `enabled` tinyint(1) NOT NULL,
   PRIMARY KEY (`username`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of users

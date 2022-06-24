@@ -26,7 +26,12 @@ public enum ResponseEntityEnum {
     /**
      * 失败
      */
-    FAIL("111111","fail");
+    FAIL("111111","fail"),
+
+    /**
+     * 未授权   无权限
+     */
+    NO_PERMISSION("A000403", "no permission");
 
     private final String code;
 

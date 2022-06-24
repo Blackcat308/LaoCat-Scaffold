@@ -4,6 +4,7 @@ package org.laocat.config;
 import org.laocat.auth.MD5Util;
 import org.laocat.auth.manager.AuthorizeConfigManager;
 import org.laocat.auth.service.UserServiceImpl;
+import org.laocat.handler.LaoCatAccessDeniedHandler;
 import org.laocat.handler.LaoCatPermissionEvaluator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -37,15 +39,20 @@ public class ValidateSecurityCoreConfig extends WebSecurityConfigurerAdapter {
      */
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     /**
+     * 无权限处理器
+     */
+    private final LaoCatAccessDeniedHandler accessDeniedHandler;
+    /**
      * 封装管理器
      */
     private final AuthorizeConfigManager authorizeConfigManager;
 
     private final UserServiceImpl userService;
 
-    public ValidateSecurityCoreConfig(AuthenticationFailureHandler authenticationFailureHandler, AuthenticationSuccessHandler authenticationSuccessHandler, AuthorizeConfigManager authorizeConfigManager, UserServiceImpl userService) {
+    public ValidateSecurityCoreConfig(AuthenticationFailureHandler authenticationFailureHandler, AuthenticationSuccessHandler authenticationSuccessHandler,LaoCatAccessDeniedHandler accessDeniedHandler, AuthorizeConfigManager authorizeConfigManager, UserServiceImpl userService) {
         this.authenticationFailureHandler = authenticationFailureHandler;
         this.authenticationSuccessHandler = authenticationSuccessHandler;
+        this.accessDeniedHandler = accessDeniedHandler;
         this.authorizeConfigManager = authorizeConfigManager;
         this.userService = userService;
     }
@@ -106,6 +113,9 @@ public class ValidateSecurityCoreConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler)
                 .and()
                 // 先加上这句话，否则登录的时候会出现403错误码，Could not verify the provided CSRF token because your session was not found.
                 .csrf().disable();

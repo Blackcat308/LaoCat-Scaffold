@@ -24,10 +24,6 @@ public enum JwtRedisEnum {
 
     /**
      * 获取key
-     *
-     * @param username：xxx@163.com
-     * @param randomKey：xxxxxx
-     * @return
      */
     public static String getTokenKey(String username, String randomKey) {
         return TOKEN_KEY_PREFIX.value + username + ":" + randomKey;
@@ -35,9 +31,6 @@ public enum JwtRedisEnum {
 
     /**
      * 获取身份认证key
-     *
-     * @param username：用户名
-     * @return
      */
     public static String getAuthenticationKey(String username, String randomKey) {
         return AUTHENTICATION_KEY_PREFIX.value + username + ":" + randomKey;

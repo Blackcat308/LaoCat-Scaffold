@@ -9,7 +9,7 @@ import org.laocat.auth.manager.CoreAuthorizeConfigProvider;
 import org.laocat.config.SecurityProperties;
 import org.laocat.core.response.structure.ResponseEntity;
 import org.laocat.core.response.structure.ResponseEntityEnum;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,11 +41,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private final SecurityProperties securityProperties;
 
-    private final StringRedisTemplate redisTemplate;
+    private final RedisTemplate redisTemplate;
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-    public JwtAuthenticationTokenFilter(JwtUtil jwtUtil, CoreAuthorizeConfigProvider coreAuthorizeConfigProvider, SecurityProperties securityProperties, StringRedisTemplate redisTemplate) {
+    public JwtAuthenticationTokenFilter(JwtUtil jwtUtil, CoreAuthorizeConfigProvider coreAuthorizeConfigProvider, SecurityProperties securityProperties, RedisTemplate redisTemplate) {
         this.jwtUtil = jwtUtil;
         this.coreAuthorizeConfigProvider = coreAuthorizeConfigProvider;
         this.securityProperties = securityProperties;
@@ -122,8 +122,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         }
 
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
-            String authenticationStr = redisTemplate.opsForValue().get(JwtRedisEnum.getAuthenticationKey(username, randomKey));
-            Authentication authentication = JSON.parseObject(authenticationStr, Authentication.class);
+            Authentication authentication = null;
+            Object authenticationObj = redisTemplate.opsForValue().get(JwtRedisEnum.getAuthenticationKey(username, randomKey));
+            if (Objects.nonNull(authenticationObj)) {
+                authentication = (Authentication) authenticationObj;
+            }
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
@@ -154,9 +157,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                         TimeUnit.SECONDS);
 
                 // 取出老的authenticate放到redis里
-                String authentication = redisTemplate.opsForValue().get(JwtRedisEnum.getAuthenticationKey(username, randomKey));
+                Object authenticationObj = redisTemplate.opsForValue().get(JwtRedisEnum.getAuthenticationKey(username, randomKey));
 
-                assert authentication != null;
+                assert authenticationObj != null;
+
+                Authentication authentication = (Authentication) authenticationObj;
                 redisTemplate.opsForValue().set(JwtRedisEnum.getAuthenticationKey(username, newRandomKey),
                         authentication,
                         securityProperties.getEffectiveTime(),

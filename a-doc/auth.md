@@ -14,20 +14,20 @@
 http://127.0.0.1:1011/login
 ```
 
-- 4.输入账号密码后，默认账号密码都为 laocat (前提是你同步了我得sql语句),成功后跳转如下链接。
+- 4.输入账号密码后，默认账号密码都为 laocat (前提是你同步了我得sql语句)，请求授权地址如下。
 
 ```shell
 http://127.0.0.1:1011/authentication
 ```
-
 ![img_2.png](img_2.png)
 
+token会在下方显示出来，方便复制粘贴到postman测试。
 - 5.查看redis
 
 ![img_3.png](img_3.png)
 ![img_4.png](img_4.png)
 
-- 复制该token
+- 复制该token、注意从红框后边复制
 
 - 6.打开postman，填入测试授权链接
   `http://127.0.0.1:1012/author?token=:token`
@@ -37,6 +37,9 @@ http://127.0.0.1:1011/authentication
 
 验证即可。
 
+-7.如果需要对权限进行相关验证，可在postman访问，填入你的token
+
+![img_6.png](img_6.png)
 
 -----
 
