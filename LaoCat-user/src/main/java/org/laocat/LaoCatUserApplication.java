@@ -2,6 +2,7 @@ package org.laocat;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author LaoCat
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @description 用户中心
  */
 @SpringBootApplication
+@EnableTransactionManagement
 public class LaoCatUserApplication {
 
     public static void main(String[] args) {

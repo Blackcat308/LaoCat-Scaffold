@@ -1,14 +1,16 @@
 package org.laocat.controller;
 
 import lombok.AllArgsConstructor;
+import org.laocat.core.exception.UserAlreadyExistException;
 import org.laocat.core.response.structure.ResponseEntity;
 import org.laocat.entity.UserInfo;
 import org.laocat.service.UserInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Objects;
+
+import static org.laocat.core.exception.ErrMsgConstants.USER_ALREADY_EXIST;
 
 /**
  * @author LaoCat
@@ -42,7 +44,7 @@ public class UserInfoController {
     @PostMapping
     public ResponseEntity<?> register(@Valid @RequestBody UserInfo userInfo) {
         if (Objects.nonNull(this.loadUserInfoByUserName(userInfo.getUsername()))) {
-            throw new RuntimeException("该用户已存在");
+            throw new UserAlreadyExistException(USER_ALREADY_EXIST);
         }
 
         userInfoService.register(userInfo);

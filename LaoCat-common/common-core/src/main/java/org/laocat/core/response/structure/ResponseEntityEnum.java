@@ -22,18 +22,16 @@ public enum ResponseEntityEnum {
      * 密码错误或验证失败
      */
     PASSWORD_VERIFICATION_ERROR("A000400", "Incorrect password or verification failed"),
-
     /**
      * 失败
      */
     FAIL("111111","fail"),
-
     /**
      * 未授权   无权限
      */
     NO_PERMISSION("A000403", "no permission"),
     /**
-     * 未授权   无权限
+     * 登出成功
      */
     LOGOUT_SUCCESS("A000000", "logout success");
 

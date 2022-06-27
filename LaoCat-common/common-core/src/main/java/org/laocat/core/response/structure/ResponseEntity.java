@@ -5,6 +5,8 @@ import lombok.ToString;
 
 import java.io.Serializable;
 
+import static org.laocat.core.response.structure.ResponseEntityEnum.FAIL;
+
 /**
  * @author LaoCat
  * @date 2022/6/16
@@ -55,8 +57,8 @@ public class ResponseEntity<T> implements Serializable {
      */
     public static <T> ResponseEntity<T> fail() {
         ResponseEntity<T> serverResponseEntity = new ResponseEntity<>();
-        serverResponseEntity.setMessage(ResponseEntityEnum.FAIL.value());
-        serverResponseEntity.setCode(ResponseEntityEnum.FAIL.getMessage());
+        serverResponseEntity.setMessage(FAIL.value());
+        serverResponseEntity.setCode(FAIL.getMessage());
         return serverResponseEntity;
     }
 
@@ -87,5 +89,17 @@ public class ResponseEntity<T> implements Serializable {
         return serverResponseEntity;
     }
 
+    /**
+     * @return org.laocat.core.response.structure.ResponseEntity<T>
+     * @author LaoCat
+     * @date 2022/6/16
+     * @description 失败 异常专用
+     */
+    public static <T> ResponseEntity<T> fail(String errMsg) {
+        ResponseEntity<T> serverResponseEntity = new ResponseEntity<>();
+        serverResponseEntity.setMessage(errMsg);
+        serverResponseEntity.setCode(FAIL.value());
+        return serverResponseEntity;
+    }
 
 }

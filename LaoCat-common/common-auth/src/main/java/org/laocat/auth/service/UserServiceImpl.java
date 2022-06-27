@@ -3,6 +3,7 @@ package org.laocat.auth.service;
 import cn.hutool.core.collection.CollUtil;
 import lombok.AllArgsConstructor;
 import org.laocat.auth.MD5Util;
+import org.laocat.core.exception.PasswordErrException;
 import org.laocat.user.feign.UserInfoFeignClient;
 import org.laocat.user.vo.UserInfoVO;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 import static org.laocat.constant.AuthConstant.REQ_PARAM_PASSWORD_KEY;
+import static org.laocat.core.exception.ErrMsgConstants.PASSWORD_ERR;
 
 /**
  * @author LaoCat
@@ -42,7 +44,7 @@ public class UserServiceImpl implements UserDetailsService {
         }
 
         if (!userInfo.getPassword().equals(MD5Util.encode(this.getPasswordByRequest()))) {
-            throw new RuntimeException("密码不正确！");
+            throw new PasswordErrException(PASSWORD_ERR);
         }
 
         // 暂未补齐权限相关信息  后续补充 TODO

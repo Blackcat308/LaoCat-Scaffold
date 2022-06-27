@@ -5,7 +5,7 @@ import cn.hutool.core.lang.Filter;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.laocat.constant.AuthConstant;
+import org.laocat.core.exception.RoleCodeAlreadyExistException;
 import org.laocat.entity.UserRole;
 import org.laocat.entity.req.UserRoleReq;
 import org.laocat.mapper.RoleMapper;
@@ -17,6 +17,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static org.laocat.constant.AuthConstant.DEFAULT_ROLE_PREFIX;
+import static org.laocat.core.exception.ErrMsgConstants.ROLE_CODE_ALREADY_EXIST;
 
 /**
  * @author: LaoCat
@@ -40,7 +41,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, UserRole> implement
         if (CollUtil.isNotEmpty(userRoles)) {
             List<UserRole> userRolesFilter = CollUtil.filter(userRoles, (Filter<UserRole>) role -> role.getRoleCode().equalsIgnoreCase(roleCode));
             if (CollUtil.isNotEmpty(userRolesFilter)) {
-                throw new RuntimeException("该角色已存在!");
+                throw new RoleCodeAlreadyExistException(ROLE_CODE_ALREADY_EXIST);
             }
         }
 
