@@ -11,7 +11,7 @@
  Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 24/06/2022 12:24:14
+ Date: 27/06/2022 17:46:48
 */
 
 SET NAMES utf8mb4;
@@ -50,6 +50,7 @@ CREATE TABLE `user_info`  (
 -- Records of user_info
 -- ----------------------------
 INSERT INTO `user_info` VALUES ('1', 'laocat', 'f291ec5086c1b1559e6c174a755e2c70', '2022-06-23 14:55:29', NULL);
+INSERT INTO `user_info` VALUES ('1540216730991894529', 'admin', 'f291ec5086c1b1559e6c174a755e2c70', '2022-06-24 14:14:19', NULL);
 
 -- ----------------------------
 -- Table structure for user_permission
@@ -84,6 +85,8 @@ CREATE TABLE `user_role`  (
 -- ----------------------------
 -- Records of user_role
 -- ----------------------------
+INSERT INTO `user_role` VALUES ('1540224006624522242', '管理员', 'ROLE_ADMIN1', '2022-06-24 14:43:14', '2022-06-27 16:19:35');
+INSERT INTO `user_role` VALUES ('1541349381446520834', '管理员', 'ROLE_ADMIN', '2022-06-27 17:15:04', NULL);
 
 -- ----------------------------
 -- Table structure for user_role_association
