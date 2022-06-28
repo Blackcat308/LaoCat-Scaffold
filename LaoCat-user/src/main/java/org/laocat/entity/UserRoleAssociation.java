@@ -12,6 +12,8 @@ import lombok.Builder;
 import io.swagger.annotations.ApiModelProperty;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 /**
@@ -34,12 +36,14 @@ public class UserRoleAssociation extends Model<UserRoleAssociation>  implements 
 	 * 用户id
 	 */
 	@ApiModelProperty(value = "用户id")
+	@NotBlank(message = "用户不能为空")
 	private String userId;
 
 	/**
 	 * 角色id
 	 */
 	@ApiModelProperty(value = "角色id")
+	@NotBlank(message = "角色不能为空")
 	private String roleId;
 
 	/**
