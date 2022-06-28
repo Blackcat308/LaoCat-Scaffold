@@ -51,6 +51,7 @@
         <hutool-version>5.5.8</hutool-version>
         <mybatis-spring-boot-starter.version>2.1.4</mybatis-spring-boot-starter.version>
         <knife4j.version>3.0.2</knife4j.version>
+        <swagger.version>1.6.2</swagger.version>
         <nacos.version>2.0.1</nacos.version>
         <fastjson.version>1.2.83</fastjson.version>
     </properties>
