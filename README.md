@@ -11,7 +11,7 @@ LaoCat Spring Cloud 脚手架
 * jdk 1.8
 * maven 3.8.1
 * nacos 2.0.1
-* redis 3.0.504
+* redis 7.0.2
 
 
 ### 项目技术选型

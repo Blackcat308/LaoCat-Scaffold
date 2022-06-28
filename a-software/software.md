@@ -17,7 +17,7 @@
 
 ## redis
 
-- https://github.com/microsoftarchive/redis/releases
+- https://github.com/redis/redis/releases
 
 ## mysql workbench 8.0ce  查看db设计用
 

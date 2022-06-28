@@ -8,7 +8,7 @@
 
 ### nacos 2.0.1
 
-### redis 3.0.504
+### redis 7.0.2
 
 > auth模块如果 jdk为17 则会报错不存在某Converter类 \
 > nacos版本最好为 2.0.1 和项目依赖匹配 \
