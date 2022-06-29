@@ -2,6 +2,9 @@ package org.laocat.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.laocat.entity.UserInfo;
+import org.laocat.entity.vo.UserInfoDetailVO;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author LaoCat
@@ -20,4 +23,10 @@ public interface UserInfoService extends IService<UserInfo> {
      * @return
      */
     Boolean register(UserInfo userInfo);
+
+
+    /**
+     * @return UserInfoDetailVO
+     */
+    UserInfoDetailVO selectUserInfoByToken();
 }

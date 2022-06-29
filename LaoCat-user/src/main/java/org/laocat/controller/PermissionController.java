@@ -7,6 +7,7 @@ import org.laocat.core.response.structure.ResponseEntity;
 import org.laocat.entity.UserPermission;
 import org.laocat.entity.req.PermissionReq;
 import org.laocat.service.PermissionService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,6 +33,7 @@ public class PermissionController {
      */
     @PostMapping
     @ApiOperation(value = "增加权限",notes = "增加权限")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> createPermission(@Valid @RequestBody UserPermission permission) {
         return permissionService.createPermission(permission) ? ResponseEntity.success() : ResponseEntity.fail();
     }
@@ -44,6 +46,7 @@ public class PermissionController {
      */
     @DeleteMapping
     @ApiOperation(value = "删除权限",notes = "删除权限")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deletePermission() {
         return ResponseEntity.success();
     }
@@ -57,6 +60,7 @@ public class PermissionController {
      */
     @GetMapping
     @ApiOperation(value = "查看权限列表",notes = "查看权限列表")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<UserPermission>> permissions(PermissionReq permissionReq) {
         return ResponseEntity.success(permissionService.permissions(permissionReq));
     }

@@ -6,9 +6,12 @@ import lombok.AllArgsConstructor;
 import org.laocat.core.exception.UserAlreadyExistException;
 import org.laocat.core.response.structure.ResponseEntity;
 import org.laocat.entity.UserInfo;
+import org.laocat.entity.vo.UserInfoDetailVO;
 import org.laocat.service.UserInfoService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Objects;
 
@@ -45,7 +48,7 @@ public class UserInfoController {
      * @date 2022/6/15
      * @description 新增用户 == 注册用户
      */
-    @PostMapping
+    @PostMapping("register")
     @ApiOperation(value = "注册用户",notes = "注册用户")
     public ResponseEntity<?> register(@Valid @RequestBody UserInfo userInfo) {
         if (Objects.nonNull(this.loadUserInfoByUserName(userInfo.getUsername()))) {
@@ -56,5 +59,17 @@ public class UserInfoController {
         return ResponseEntity.success();
     }
 
+    /**
+     * @description: 查询用户信息
+     * @author: LaoCat
+     * @date: 2022/6/29
+     * @returnType: org.laocat.core.response.structure.ResponseEntity
+     */
+    @GetMapping
+    @ApiOperation(value = "获取用户信息",notes = "获取用户信息")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<UserInfoDetailVO> selectUserInfoByToken() {
+        return ResponseEntity.success(userInfoService.selectUserInfoByToken());
+    }
 
 }

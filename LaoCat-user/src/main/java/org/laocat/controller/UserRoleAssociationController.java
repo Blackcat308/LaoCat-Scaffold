@@ -7,6 +7,7 @@ import org.laocat.core.response.structure.ResponseEntity;
 import org.laocat.entity.UserRole;
 import org.laocat.entity.req.UserRoleAssociationReq;
 import org.laocat.service.UserRoleAssociationService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,6 +33,7 @@ public class UserRoleAssociationController {
      */
     @PostMapping
     @ApiOperation(value = "新建用户与角色关联关系",notes = "新建用户与角色关联关系")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Boolean> createUserRole(@Valid @RequestBody UserRoleAssociationReq userRoleAssociation) {
         return userRoleAssociationService.createUserRole(userRoleAssociation) > 0 ? ResponseEntity.success() : ResponseEntity.fail();
     }
@@ -44,6 +46,7 @@ public class UserRoleAssociationController {
      */
     @DeleteMapping("{userId}")
     @ApiOperation(value = "解绑所有",notes = "解绑所有")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteUserRoleAll(@PathVariable String userId) {
         return userRoleAssociationService.deleteUserRoleAll(userId) > 0 ? ResponseEntity.success() : ResponseEntity.fail();
     }
@@ -56,6 +59,7 @@ public class UserRoleAssociationController {
      */
     @DeleteMapping("{userId}/{roleId}")
     @ApiOperation(value = "解绑某一角色",notes = "解绑某一角色")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteUserRole(@PathVariable String userId, @PathVariable String roleId) {
         return userRoleAssociationService.deleteUserRole(userId, roleId) > 0 ? ResponseEntity.success() : ResponseEntity.fail();
     }
