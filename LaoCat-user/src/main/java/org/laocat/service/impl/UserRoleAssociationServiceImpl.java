@@ -2,6 +2,7 @@ package org.laocat.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import lombok.AllArgsConstructor;
+import org.laocat.entity.UserRole;
 import org.laocat.entity.UserRoleAssociation;
 import org.laocat.entity.req.UserRoleAssociationReq;
 import org.laocat.mapper.UserRoleAssociationMapper;
@@ -83,5 +84,16 @@ public class UserRoleAssociationServiceImpl implements UserRoleAssociationServic
     @Override
     public int deleteUserRole(String userId, String roleId) {
         return userRoleAssociationMapper.deleteUserRole(userId, roleId);
+    }
+
+    /**
+     * @description: 查询用户角色
+     * @author: LaoCat
+     * @date: 2022/6/29
+     * @returnType: java.util.List<org.laocat.entity.UserRole>
+     */
+    @Override
+    public List<UserRole> selectUserRolesByUserId(String userId) {
+        return userRoleAssociationMapper.selectUserRolesByUserId(userId);
     }
 }

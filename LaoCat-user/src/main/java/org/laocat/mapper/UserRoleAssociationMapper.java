@@ -1,6 +1,7 @@
 package org.laocat.mapper;
 
 import org.apache.ibatis.annotations.Param;
+import org.laocat.entity.UserRole;
 import org.laocat.entity.UserRoleAssociation;
 import org.laocat.entity.req.UserRoleAssociationReq;
 
@@ -52,4 +53,12 @@ public interface UserRoleAssociationMapper {
      * @returnType: org.laocat.entity.UserRoleAssociation
      */
     int deleteUserRole(@Param("userId") String userId, @Param("roleId") String roleId);
+
+    /**
+     * @description: 查询用户角色
+     * @author: LaoCat
+     * @date: 2022/6/29
+     * @returnType: java.util.List<org.laocat.entity.UserRole>
+     */
+    List<UserRole> selectUserRolesByUserId(@Param("userId") String userId);
 }

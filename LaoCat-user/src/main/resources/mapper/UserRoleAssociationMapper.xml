@@ -8,6 +8,10 @@
         ,role_id,gmt_time,modify_time
     </sql>
 
+    <sql id="userRoleField">
+        ur.id,ur.role_name,ur.role_code,ur.gmt_time,ur.modify_time
+    </sql>
+
     <insert id="createUserRole">
         INSERT INTO user_role_association ( user_id, role_id, gmt_time)
         VALUES
@@ -47,4 +51,14 @@
         WHERE user_id = #{userId}
           AND role_id = #{roleId}
     </delete>
+
+    <select id="selectUserRolesByUserId" resultType="org.laocat.entity.UserRole">
+        SELECT
+            <include refid="userRoleField"/>
+        FROM
+            user_role_association ura
+                INNER JOIN user_role ur ON ura.role_id = ur.id
+        WHERE
+            ura.user_id = #{userId}
+    </select>
 </mapper>

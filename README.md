@@ -33,8 +33,8 @@ LaoCat Spring Cloud 脚手架
 
 ### 项目进度
 DB
-- 设计权限db   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  60%
-- 新建权限相关db   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  60%
+- 设计权限db   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  70%
+- 新建权限相关db   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  70%
 
 ---
 
@@ -45,8 +45,8 @@ DB
 - 引入security   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  95%
 - 项目模块覆盖security   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  100%
 - 处理feign上下文传递token、处理非网关访问。   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  15%
-- 处理swagger ui 在微服务中模块兼容   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  1%
-- 增加用户模块 权限相关 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  70%
+- 处理swagger ui 在微服务中模块兼容   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  100%
+- 增加用户模块 权限相关 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  90%
 - 全局异常处理、时间序列化处理 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  85%
 
 ----

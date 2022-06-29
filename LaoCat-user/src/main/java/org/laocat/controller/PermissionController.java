@@ -1,5 +1,7 @@
 package org.laocat.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.laocat.core.response.structure.ResponseEntity;
 import org.laocat.entity.UserPermission;
@@ -18,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("permission")
 @AllArgsConstructor
+@Api(tags = "权限相关")
 public class PermissionController {
     private final PermissionService permissionService;
 
@@ -28,6 +31,7 @@ public class PermissionController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<?>
      */
     @PostMapping
+    @ApiOperation(value = "增加权限",notes = "增加权限")
     public ResponseEntity<?> createPermission(@Valid @RequestBody UserPermission permission) {
         return permissionService.createPermission(permission) ? ResponseEntity.success() : ResponseEntity.fail();
     }
@@ -39,6 +43,7 @@ public class PermissionController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<?>
      */
     @DeleteMapping
+    @ApiOperation(value = "删除权限",notes = "删除权限")
     public ResponseEntity<?> deletePermission() {
         return ResponseEntity.success();
     }
@@ -51,6 +56,7 @@ public class PermissionController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<List < UserPermission>>
      */
     @GetMapping
+    @ApiOperation(value = "查看权限列表",notes = "查看权限列表")
     public ResponseEntity<List<UserPermission>> permissions(PermissionReq permissionReq) {
         return ResponseEntity.success(permissionService.permissions(permissionReq));
     }

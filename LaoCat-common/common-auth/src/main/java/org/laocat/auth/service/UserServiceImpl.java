@@ -6,6 +6,7 @@ import org.laocat.auth.MD5Util;
 import org.laocat.core.exception.PasswordErrException;
 import org.laocat.user.feign.UserInfoFeignClient;
 import org.laocat.user.vo.UserInfoVO;
+import org.laocat.user.vo.UserRoleVO;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,6 +16,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static org.laocat.constant.AuthConstant.REQ_PARAM_PASSWORD_KEY;
 import static org.laocat.core.exception.ErrMsgConstants.PASSWORD_ERR;
@@ -47,7 +49,6 @@ public class UserServiceImpl implements UserDetailsService {
             throw new PasswordErrException(PASSWORD_ERR);
         }
 
-        // 暂未补齐权限相关信息  后续补充 TODO
         return this.buildUserDetails(userInfo);
     }
 
@@ -62,7 +63,12 @@ public class UserServiceImpl implements UserDetailsService {
                 .id(userInfo.getId())
                 .username(userInfo.getUsername())
                 .password(userInfo.getPassword())
-                .roles(CollUtil.newArrayList("ROLE_ADMIN", "ROLE_CUSTOM"))
+                .roles(
+                        userInfoFeignClient.loadUserRoleByUserId(userInfo.getId())
+                                .stream()
+                                .map(UserRoleVO::getRoleCode)
+                                .collect(Collectors.toList())
+                )
                 .build();
     }
 

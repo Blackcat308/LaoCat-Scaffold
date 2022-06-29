@@ -1,9 +1,12 @@
 package org.laocat.user.feign;
 
 import org.laocat.user.vo.UserInfoVO;
+import org.laocat.user.vo.UserRoleVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * @author LaoCat
@@ -15,4 +18,8 @@ public interface UserInfoFeignClient {
 
     @GetMapping("userInfo/userInfoByUserName")
     UserInfoVO loadUserInfoByUserName(@RequestParam("username") String username);
+
+
+    @GetMapping("userRole/userRoleByUserId")
+    List<UserRoleVO> loadUserRoleByUserId(@RequestParam("userId") String userId);
 }

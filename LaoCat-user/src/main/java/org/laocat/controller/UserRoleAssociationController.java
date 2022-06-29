@@ -1,13 +1,16 @@
 package org.laocat.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.laocat.core.response.structure.ResponseEntity;
-import org.laocat.entity.UserRoleAssociation;
+import org.laocat.entity.UserRole;
 import org.laocat.entity.req.UserRoleAssociationReq;
 import org.laocat.service.UserRoleAssociationService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @description: 用户与角色中间表
@@ -17,6 +20,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("userRole")
 @AllArgsConstructor
+@Api(tags = "用户与角色相关")
 public class UserRoleAssociationController {
     private final UserRoleAssociationService userRoleAssociationService;
 
@@ -27,6 +31,7 @@ public class UserRoleAssociationController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<Boolean>
      */
     @PostMapping
+    @ApiOperation(value = "新建用户与角色关联关系",notes = "新建用户与角色关联关系")
     public ResponseEntity<Boolean> createUserRole(@Valid @RequestBody UserRoleAssociationReq userRoleAssociation) {
         return userRoleAssociationService.createUserRole(userRoleAssociation) > 0 ? ResponseEntity.success() : ResponseEntity.fail();
     }
@@ -38,6 +43,7 @@ public class UserRoleAssociationController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<?>
      */
     @DeleteMapping("{userId}")
+    @ApiOperation(value = "解绑所有",notes = "解绑所有")
     public ResponseEntity<?> deleteUserRoleAll(@PathVariable String userId) {
         return userRoleAssociationService.deleteUserRoleAll(userId) > 0 ? ResponseEntity.success() : ResponseEntity.fail();
     }
@@ -49,7 +55,20 @@ public class UserRoleAssociationController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<?>
      */
     @DeleteMapping("{userId}/{roleId}")
-    public ResponseEntity<?> deleteUserRole(@PathVariable String userId,@PathVariable String roleId) {
-        return userRoleAssociationService.deleteUserRole(userId,roleId) > 0 ? ResponseEntity.success() : ResponseEntity.fail();
+    @ApiOperation(value = "解绑某一角色",notes = "解绑某一角色")
+    public ResponseEntity<?> deleteUserRole(@PathVariable String userId, @PathVariable String roleId) {
+        return userRoleAssociationService.deleteUserRole(userId, roleId) > 0 ? ResponseEntity.success() : ResponseEntity.fail();
+    }
+
+    /**
+     * @description: 根据userid获取所有角色 内部
+     * @author: LaoCat
+     * @date: 2022/6/28
+     * @returnType: org.laocat.core.response.structure.ResponseEntity<?>
+     */
+    @GetMapping("/userRoleByUserId")
+    @ApiOperation(value = "根据userid获取所有角色[Inner]",notes = "根据userid获取所有角色[Inner]")
+    public List<UserRole> deleteUserRole(@RequestParam String userId) {
+        return userRoleAssociationService.selectUserRolesByUserId(userId);
     }
 }

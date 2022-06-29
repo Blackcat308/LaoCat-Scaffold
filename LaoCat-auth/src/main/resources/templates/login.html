@@ -52,6 +52,23 @@
     <p>-----------------------------------------------------华丽的分割线--------------------------------------------------------</p>
     <br>
     <div>
+        <h3>检验角色是否有TEST权限</h3>
+        <table>
+            <tr>
+                <td>token:</td>
+                <td><input name="tokenTest" type="text"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button onclick="checkRoleTest()" type="button">校验</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <p>-----------------------------------------------------华丽的分割线--------------------------------------------------------</p>
+    <br>
+    <div>
         <h3>退出登录</h3>
         <table>
             <tr>
@@ -96,7 +113,7 @@
     }
 
     /**
-     * 校验权限 生产勿用此方式
+     * 校验权限 生产勿用此方式 admin
      */
     function checkRole() {
         var token = $("input[name=token]").val();
@@ -107,6 +124,34 @@
         $.ajax({
             type: "GET",
             url: "/custom",
+            headers: {
+                "Authorization": token
+            },
+            jsonp: true,
+            success: function (data, status, req) {
+                if (status === "success") {
+                    alert(data.data)
+                }
+            },
+            error: function (data, a, b) {
+                console.log(data.responseText);
+                alert("校验出错")
+            }
+        });
+    }
+
+    /**
+     * 校验权限 生产勿用此方式 test
+     */
+    function checkRoleTest() {
+        var token = $("input[name=tokenTest]").val();
+        if (token === "") {
+            alert("token不能为空");
+            return;
+        }
+        $.ajax({
+            type: "GET",
+            url: "/test",
             headers: {
                 "Authorization": token
             },

@@ -15,11 +15,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @description:
+ * @description: swagger ui 资源配置
  * @author: dabin
  * @createTime: 2022/6/28 17:36
  */
-
 @Component
 @Primary
 @AllArgsConstructor

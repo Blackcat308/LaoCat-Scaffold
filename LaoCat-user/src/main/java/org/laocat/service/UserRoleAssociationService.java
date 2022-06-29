@@ -1,6 +1,7 @@
 package org.laocat.service;
 
 import org.laocat.core.response.structure.ResponseEntity;
+import org.laocat.entity.UserRole;
 import org.laocat.entity.UserRoleAssociation;
 import org.laocat.entity.req.UserRoleAssociationReq;
 
@@ -53,4 +54,12 @@ public interface UserRoleAssociationService {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<?>
      */
     int deleteUserRole(String userId, String roleId);
+
+    /**
+     * @description: 查询用户角色
+     * @author: LaoCat
+     * @date: 2022/6/28
+     * @returnType: org.laocat.core.response.structure.ResponseEntity<?>
+     */
+    List<UserRole> selectUserRolesByUserId(String userId);
 }

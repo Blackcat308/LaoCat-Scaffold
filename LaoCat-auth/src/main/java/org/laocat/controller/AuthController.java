@@ -1,5 +1,7 @@
 package org.laocat.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.laocat.auth.JwtRedisEnum;
 import org.laocat.auth.JwtUtil;
@@ -24,6 +26,7 @@ import static org.laocat.constant.AuthConstant.BEARER;
  */
 @Controller
 @AllArgsConstructor
+@Api(tags = "Token相关")
 public class AuthController {
 
     /**
@@ -33,13 +36,14 @@ public class AuthController {
      * @returnType: java.lang.String
      */
     @GetMapping("/login")
+    @ApiOperation(value = "跳转login登录页面",notes = "跳转login登录页面")
     public String login() {
         return "login";
     }
 
     /**
      * @see SecurityExpressionRoot // #getAuthoritySet()
-     * @description: 判断是否有自定义权限
+     * @description: 判断是否有admin角色
      * @author: LaoCat
      * @date: 2022/6/23
      * @returnType: org.laocat.core.response.structure.ResponseEntity<java.lang.String>
@@ -47,7 +51,23 @@ public class AuthController {
     @GetMapping("/custom")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "判断是否有admin角色",notes = "判断是否有admin角色")
     public ResponseEntity<String> custom() {
         return ResponseEntity.success("您有admin权限！");
+    }
+
+    /**
+     * @see SecurityExpressionRoot // #getAuthoritySet()
+     * @description: 判断是否有test角色
+     * @author: LaoCat
+     * @date: 2022/6/29
+     * @returnType: org.laocat.core.response.structure.ResponseEntity<java.lang.String>
+     */
+    @GetMapping("/test")
+    @ResponseBody
+    @PreAuthorize("hasRole('ROLE_TEST')")
+    @ApiOperation(value = "判断是否有test角色",notes = "判断是否有test角色")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.success("您有test权限！");
     }
 }

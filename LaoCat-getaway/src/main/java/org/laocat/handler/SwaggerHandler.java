@@ -13,7 +13,7 @@ import java.util.Optional;
 
 
 /**
- * @description:
+ * @description: swagger 增强处理
  * @author: dabin
  * @createTime: 2022/6/24 15:42
  */
@@ -47,7 +47,7 @@ public class SwaggerHandler {
     }
 
     @GetMapping("/swagger-resources")
-    public Mono<ResponseEntity> swaggerResources() {
+    public Mono<ResponseEntity<?>> swaggerResources() {
         return Mono.just((new ResponseEntity<>(swaggerResources.get(), HttpStatus.OK)));
     }
 }
