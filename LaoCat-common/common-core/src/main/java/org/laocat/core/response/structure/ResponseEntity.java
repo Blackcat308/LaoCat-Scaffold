@@ -1,5 +1,8 @@
 package org.laocat.core.response.structure;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
@@ -14,12 +17,14 @@ import static org.laocat.core.response.structure.ResponseEntityEnum.FAIL;
  */
 @Data
 @ToString
+@ApiModel
 public class ResponseEntity<T> implements Serializable {
 
+    @ApiModelProperty(value = "返回code")
     private String code;
-
+    @ApiModelProperty(value = "返回信息")
     private String message;
-
+    @ApiModelProperty(value = "返回体")
     private T data;
 
     /**
