@@ -17,6 +17,7 @@
         <module>common-core</module>
         <module>common-auth</module>
         <module>common-data</module>
+        <module>common-cache</module>
     </modules>
 
 </project>

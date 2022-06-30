@@ -1,6 +1,6 @@
 package org.laocat.filters;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.laocat.auth.JwtRedisEnum;
@@ -9,7 +9,7 @@ import org.laocat.auth.manager.CoreAuthorizeConfigProvider;
 import org.laocat.config.SecurityProperties;
 import org.laocat.core.response.structure.ResponseEntity;
 import org.laocat.core.response.structure.ResponseEntityEnum;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.laocat.utils.RedisUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 import static org.laocat.constant.AuthConstant.*;
 
@@ -41,15 +40,15 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private final SecurityProperties securityProperties;
 
-    private final RedisTemplate redisTemplate;
+    private final RedisUtil redisUtil;
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-    public JwtAuthenticationTokenFilter(JwtUtil jwtUtil, CoreAuthorizeConfigProvider coreAuthorizeConfigProvider, SecurityProperties securityProperties, RedisTemplate redisTemplate) {
+    public JwtAuthenticationTokenFilter(JwtUtil jwtUtil, CoreAuthorizeConfigProvider coreAuthorizeConfigProvider, SecurityProperties securityProperties, RedisUtil redisUtil) {
         this.jwtUtil = jwtUtil;
         this.coreAuthorizeConfigProvider = coreAuthorizeConfigProvider;
         this.securityProperties = securityProperties;
-        this.redisTemplate = redisTemplate;
+        this.redisUtil = redisUtil;
     }
 
     @Override
@@ -107,7 +106,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         /*
          *验证token是否存在（过期了也会消失）
          */
-        Object token = redisTemplate.opsForValue().get(JwtRedisEnum.getTokenKey(username, randomKey));
+        Object token = redisUtil.get(JwtRedisEnum.getTokenKey(username, randomKey));
         if (Objects.isNull(token)) {
             responseEntity(response, HttpStatus.UNAUTHORIZED.value(), ResponseEntity.fail(ResponseEntityEnum.TOKEN_EXPIRED));
             return;
@@ -123,7 +122,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
             Authentication authentication = null;
-            Object authenticationObj = redisTemplate.opsForValue().get(JwtRedisEnum.getAuthenticationKey(username, randomKey));
+            Object authenticationObj = redisUtil.get(JwtRedisEnum.getAuthenticationKey(username, randomKey));
             if (Objects.nonNull(authenticationObj)) {
                 authentication = (Authentication) authenticationObj;
             }
@@ -143,7 +142,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             // token过期时间小于等于多少秒，自动刷新token
             if (surplusExpireTime <= securityProperties.getAutoRefreshRemainingTime()) {
                 // 1.删除之前的token
-                redisTemplate.delete(JwtRedisEnum.getTokenKey(username, randomKey));
+                redisUtil.del(JwtRedisEnum.getTokenKey(username, randomKey));
                 //2.重新生成token
                 //3.重新生成randomKey，放到header以及redis
                 String newRandomKey = jwtUtil.getRandomKey();
@@ -151,28 +150,18 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 String newAuthToken = jwtUtil.refreshToken(authToken, newRandomKey);
                 response.setHeader(AUTHORIZATION, String.join(BEARER, newAuthToken));
                 response.setHeader(RANDOM_KEY, newRandomKey);
-                redisTemplate.opsForValue().set(JwtRedisEnum.getTokenKey(username, newRandomKey),
-                        newAuthToken,
-                        securityProperties.getEffectiveTime(),
-                        TimeUnit.SECONDS);
 
+                redisUtil.set(JwtRedisEnum.getTokenKey(username, newRandomKey), newAuthToken, securityProperties.getEffectiveTime());
                 // 取出老的authenticate放到redis里
-                Object authenticationObj = redisTemplate.opsForValue().get(JwtRedisEnum.getAuthenticationKey(username, randomKey));
+                Object authenticationObj = redisUtil.get(JwtRedisEnum.getAuthenticationKey(username, randomKey));
 
                 assert authenticationObj != null;
 
                 Authentication authentication = (Authentication) authenticationObj;
-                redisTemplate.opsForValue().set(JwtRedisEnum.getAuthenticationKey(username, newRandomKey),
-                        authentication,
-                        securityProperties.getEffectiveTime(),
-                        TimeUnit.SECONDS);
+                redisUtil.set(JwtRedisEnum.getAuthenticationKey(username, newRandomKey), authentication, securityProperties.getEffectiveTime());
 
                 // 删除旧的认证信息,这里设置50s后自动到期，是因为在实际应用中有可能从authentication里获取用户唯一标识
-                redisTemplate.opsForValue().set(
-                        JwtRedisEnum.getAuthenticationKey(username, randomKey),
-                        authentication,
-                        50,
-                        TimeUnit.SECONDS);
+                redisUtil.set(JwtRedisEnum.getAuthenticationKey(username, randomKey), authentication, 50);
             }
         }
 

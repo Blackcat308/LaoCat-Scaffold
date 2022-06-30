@@ -1,13 +1,12 @@
 package org.laocat.handler;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import lombok.SneakyThrows;
 import org.laocat.auth.JwtRedisEnum;
 import org.laocat.auth.JwtUtil;
 import org.laocat.core.response.structure.ResponseEntity;
-import org.laocat.core.response.structure.ResponseEntityEnum;
+import org.laocat.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Component;
@@ -30,7 +29,7 @@ public class LaoCatLogoutHandler implements LogoutHandler {
     private JwtUtil jwtUtil;
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisUtil redisUtil;
 
     @SneakyThrows
     @Override
@@ -41,8 +40,8 @@ public class LaoCatLogoutHandler implements LogoutHandler {
         String randomKey = jwtUtil.getMd5KeyByToken(authToken);
         String username = jwtUtil.getUsernameByToken(authToken);
 
-        redisTemplate.delete(JwtRedisEnum.getTokenKey(username, randomKey));
-        redisTemplate.delete(JwtRedisEnum.getAuthenticationKey(username, randomKey));
+        redisUtil.del(JwtRedisEnum.getTokenKey(username, randomKey));
+        redisUtil.del(JwtRedisEnum.getAuthenticationKey(username, randomKey));
 
         response.setContentType(CONTENT_TYPE);
         response.getWriter().write(JSON.toJSONString(ResponseEntity.success(LOGOUT_SUCCESS)));

@@ -1,13 +1,12 @@
 package org.laocat.handler;
 
-import cn.hutool.log.StaticLog;
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import org.laocat.auth.JwtRedisEnum;
 import org.laocat.auth.JwtUtil;
 import org.laocat.config.SecurityProperties;
 import org.laocat.core.response.structure.ResponseEntity;
+import org.laocat.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,9 +15,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import static org.laocat.constant.AuthConstant.*;
 
@@ -29,7 +26,7 @@ import static org.laocat.constant.AuthConstant.*;
  */
 public class LaoCatAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisUtil redisUtil;
     @Autowired
     private JwtUtil jwtUtil;
     @Autowired
@@ -82,16 +79,9 @@ public class LaoCatAuthenticationSuccessHandler extends SavedRequestAwareAuthent
      * @description 将token 、 authenticationKey 入redis
      */
     private void toRedisStore(String username, String token, String randomKey, Authentication authentication) {
-        redisTemplate.opsForValue().set(JwtRedisEnum.getTokenKey(username, randomKey),
-                token,
-                securityProperties.getEffectiveTime(),
-                TimeUnit.SECONDS);
+        redisUtil.set(JwtRedisEnum.getTokenKey(username, randomKey), token, securityProperties.getEffectiveTime());
 
-        redisTemplate.opsForValue().set(JwtRedisEnum.getAuthenticationKey(username, randomKey),
-                authentication,
-                securityProperties.getEffectiveTime(),
-                TimeUnit.SECONDS
-        );
+        redisUtil.set(JwtRedisEnum.getAuthenticationKey(username, randomKey), authentication, securityProperties.getEffectiveTime());
     }
 
     /**
@@ -101,10 +91,8 @@ public class LaoCatAuthenticationSuccessHandler extends SavedRequestAwareAuthent
      * @description 批量删除redis的key
      */
     private void batchDel(String key) {
-        Set<String> set = redisTemplate.keys(key);
-        for (String keyStr : Objects.requireNonNull(set)) {
-            StaticLog.info("keyStr{}", keyStr);
-            redisTemplate.delete(keyStr);
-        }
+        Set<String> keys = redisUtil.keys(key);
+
+        redisUtil.del(keys.toArray(new String[0]));
     }
 }
