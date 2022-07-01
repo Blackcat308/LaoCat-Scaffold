@@ -2,6 +2,8 @@
 
 LaoCat Spring Cloud 脚手架
 
+[![OSCS Status](https://www.oscs1024.com/platform/badge/Blackcat308/LaoCat-Scaffold.git.svg?size=small)](https://www.murphysec.com/dr/Dau7cMjPb7agKuLHhl)
+
 # 相关问题提 Issues！！！！ 或关注 浪老猫的Super小窝私聊
 
 
@@ -68,3 +70,7 @@ DB
 ---
 授权演示
 ![target.png](a-doc/演示1.gif)
+
+
+---
+[![OSCS Status](https://www.oscs1024.com/platform/badge/Blackcat308/LaoCat-Scaffold.git.svg?size=large)](https://www.murphysec.com/dr/Dau7cMjPb7agKuLHhl)
