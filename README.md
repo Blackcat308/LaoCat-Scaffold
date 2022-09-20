@@ -74,3 +74,6 @@ DB
 
 ---
 [![OSCS Status](https://www.oscs1024.com/platform/badge/Blackcat308/LaoCat-Scaffold.git.svg?size=large)](https://www.murphysec.com/dr/Dau7cMjPb7agKuLHhl)
+
+
+## 暂时没有合适的业务场景可开发，故只能维持框子，等待合适的业务场景，在进行相应的开发，泪目....
