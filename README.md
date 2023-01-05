@@ -7,8 +7,6 @@ LaoCat Spring Cloud 脚手架
 # 相关问题提 Issues！！！！ 或关注 浪老猫的Super小窝私聊
 
 
-该分支为spring boot3.0相关升级。
-
 ### 项目启动需准备
 
 * mysql 8.0
