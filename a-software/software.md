@@ -23,4 +23,12 @@
 
 - https://github.com/microsoftarchive/redis/releases
 
+## prometheus 2.39.1.windows-amd64
+
+- https://github.com/prometheus/prometheus/releases
+
+## grafana  9.2.1.windows-amd64
+
+https://github.com/grafana/grafana/releases
+
 > 除nacos外其他相关安装网上教程都很多，建议自己下载安装并修改对应配置。
