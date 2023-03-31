@@ -26,6 +26,9 @@ LaoCat Spring Cloud 脚手架
 * JWT 0.9.0
 * nacos 2.0.1
 
+### 监控
+* prometheus 2.39.1
+* grafana 9.2.1
 
 
 ### 项目短期目标
@@ -57,6 +60,10 @@ DB
 - 管理系统页面处理 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  0%
 - 处理登录授权流程 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  60%
 - 接入权限系统 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  0%
+
+----
+监控
+- grafana+普罗米修斯 100%
 
 
 # ❤ 感谢关注 ❤
