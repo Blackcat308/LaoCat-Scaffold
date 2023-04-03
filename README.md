@@ -1,14 +1,12 @@
-# LaoCat-Scaffold ![img.png](img.png)
+# LaoCat-Scaffold
 
 LaoCat Spring Cloud 脚手架
 
 [![OSCS Status](https://www.oscs1024.com/platform/badge/Blackcat308/LaoCat-Scaffold.git.svg?size=small)](https://www.murphysec.com/dr/Dau7cMjPb7agKuLHhl)
 
-# 相关问题提 Issues！！！！ 或关注 浪老猫的Super小窝私聊
-
+# 相关问题提 Issues！！！！
 
 ### 项目启动需准备
-
 * mysql 8.0
 * jdk 1.8
 * maven 3.8.1
@@ -25,6 +23,7 @@ LaoCat Spring Cloud 脚手架
 * knife4j 3.0.2
 * JWT 0.9.0
 * nacos 2.0.1
+* xxl-job 2.3.0
 
 ### 监控
 * prometheus 2.39.1
@@ -53,6 +52,7 @@ DB
 - 处理swagger ui 在微服务中模块兼容   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  100%
 - 增加用户模块 权限相关 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  90%
 - 全局异常处理、时间序列化处理 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  85%
+- 引入xxl-job分布式任务调度  100%
 
 ----
 前台
@@ -63,7 +63,7 @@ DB
 
 ----
 监控
-- grafana+普罗米修斯 100%
+- 项目接入grafana+普罗米修斯 100%
 
 
 # ❤ 感谢关注 ❤
