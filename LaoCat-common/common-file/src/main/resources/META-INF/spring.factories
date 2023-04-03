@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    org.laocat.minio.LaoCatMinioAutoConfigurer,\
+    org.laocat.qiniu.LaoCatQiuNiuAutoConfigurer,
+
+
