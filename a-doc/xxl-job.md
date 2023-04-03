@@ -7,7 +7,7 @@
 
 * 执行db目录下 \
 schena.sql   初始化对应的数据库。 \
-laocat_xxl_job.sql  初始化对应数据结构与数据
+4laocat_xxl_job.sql  初始化对应数据结构与数据
 
 * 修改xxl-job源码
 ![img_7.png](img_7.png)

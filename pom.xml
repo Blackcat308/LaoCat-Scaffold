@@ -14,7 +14,6 @@
         <module>LaoCat-getaway</module>
         <module>LaoCat-user</module>
         <module>LaoCat-api</module>
-        <module>LaoCat-common/common-dispatch</module>
         <module>LaoCat-job</module>
     </modules>
 
@@ -56,6 +55,14 @@
         <swagger.version>1.6.2</swagger.version>
         <nacos.version>2.0.1</nacos.version>
         <fastjson.version>2.0.8</fastjson.version>
+
+        <minio.version>8.5.0</minio.version>
+        <qiniu.version>7.8.0</qiniu.version>
+        <xxl-job.version>2.3.1</xxl-job.version>
+        <druid.version>1.2.9</druid.version>
+        <mybatis-plus.version>3.3.2</mybatis-plus.version>
+        <jjwt.version>0.9.0</jjwt.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
     </properties>
 
     <dependencyManagement>

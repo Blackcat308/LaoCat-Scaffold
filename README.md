@@ -24,6 +24,7 @@ LaoCat Spring Cloud 脚手架
 * JWT 0.9.0
 * nacos 2.0.1
 * xxl-job 2.3.0
+* minio
 
 ### 监控
 * prometheus 2.39.1
@@ -53,6 +54,7 @@ DB
 - 增加用户模块 权限相关 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  90%
 - 全局异常处理、时间序列化处理 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  85%
 - 引入xxl-job分布式任务调度  100%
+- 新增文件服务 minio | 七牛云  100%
 
 ----
 前台

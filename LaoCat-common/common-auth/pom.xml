@@ -13,11 +13,6 @@
     <artifactId>common-auth</artifactId>
     <packaging>jar</packaging>
 
-    <properties>
-        <jjwt.version>0.9.0</jjwt.version>
-        <commons-collections.version>3.2.2</commons-collections.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

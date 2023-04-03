@@ -18,6 +18,8 @@
         <module>common-auth</module>
         <module>common-data</module>
         <module>common-cache</module>
+        <module>common-dispatch</module>
+        <module>common-file</module>
     </modules>
 
 </project>

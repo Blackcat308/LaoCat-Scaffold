@@ -31,4 +31,8 @@
 
 https://github.com/grafana/grafana/releases
 
+## minio 
+
+https://github.com/minio/minio
+
 > 除nacos外其他相关安装网上教程都很多，建议自己下载安装并修改对应配置。

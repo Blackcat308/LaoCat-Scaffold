@@ -13,11 +13,6 @@
     <artifactId>common-data</artifactId>
     <packaging>jar</packaging>
 
-    <properties>
-        <druid.version>1.2.9</druid.version>
-        <mybatis-plus.version>3.3.2</mybatis-plus.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
