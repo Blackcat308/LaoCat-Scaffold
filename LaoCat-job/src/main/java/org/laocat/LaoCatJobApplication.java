@@ -6,20 +6,18 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * @author LaoCat
- * @date 2022/6/14
- * @description 授权中心
+ * @description: 任务调度启动类
+ * @author: LaoCat
+ * @date: 2023/4/3
  */
-
 @EnableSwagger2
 @EnableDiscoveryClient
 @SpringBootApplication
-public class LaoCatAuthApplication {
+public class LaoCatJobApplication {
 
     public static void main(String[] args) {
-        SpringApplication springApplication = new SpringApplication(LaoCatAuthApplication.class);
+        SpringApplication springApplication = new SpringApplication(LaoCatJobApplication.class);
         springApplication.setAllowBeanDefinitionOverriding(true);
         springApplication.run(args);
     }
-
 }

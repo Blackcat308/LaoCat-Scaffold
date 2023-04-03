@@ -12,12 +12,16 @@
 
 ```shell
 http://127.0.0.1:1011/login
+# 或者
+http://127.0.0.1:2000/LaoCat-auth/login
 ```
 
 - 4.输入账号密码后，默认账号密码都为 laocat (前提是你同步了我得sql语句)，请求授权地址如下。
 
 ```shell
 http://127.0.0.1:1011/authentication
+# 获取
+http://127.0.0.1:2000/LaoCat-auth/authentication
 ```
 ![img_2.png](img_2.png)
 

@@ -95,7 +95,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "/authentication",
+            url: "/LaoCat-auth/authentication",
             data: {
                 "username": username,
                 "password": password
@@ -123,7 +123,7 @@
         }
         $.ajax({
             type: "GET",
-            url: "/custom",
+            url: "/LaoCat-auth/custom",
             headers: {
                 "Authorization": token
             },
@@ -151,7 +151,7 @@
         }
         $.ajax({
             type: "GET",
-            url: "/test",
+            url: "/LaoCat-auth/test",
             headers: {
                 "Authorization": token
             },
@@ -179,7 +179,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "/logout",
+            url: "/LaoCat-auth/logout",
             headers: {
                 "Authorization": token
             },
