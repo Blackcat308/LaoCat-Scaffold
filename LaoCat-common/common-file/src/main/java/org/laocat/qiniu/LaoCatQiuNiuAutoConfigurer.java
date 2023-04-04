@@ -1,5 +1,7 @@
 package org.laocat.qiniu;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -12,11 +14,11 @@ import org.springframework.context.annotation.Bean;
  * @date: 2023/4/3
  */
 @EnableConfigurationProperties({LaoCatQiuNiuConfig.class})
+@AllArgsConstructor
 public class LaoCatQiuNiuAutoConfigurer {
 
 
-    @Autowired
-    private LaoCatQiuNiuConfig qiuNiuConfig;
+    private final LaoCatQiuNiuConfig qiuNiuConfig;
 
 
     @Bean
