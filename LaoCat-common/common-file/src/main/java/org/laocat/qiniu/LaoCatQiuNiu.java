@@ -17,8 +17,8 @@ import java.io.InputStream;
  * @author: LaoCat
  * @date: 2023/4/3
  */
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 public class LaoCatQiuNiu implements InitializingBean {
     private final String bucket;
     private final String accessKey;

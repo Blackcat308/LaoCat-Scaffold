@@ -1,6 +1,6 @@
 package org.laocat.minio;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -11,19 +11,16 @@ import org.springframework.context.annotation.Bean;
  * @author: LaoCat
  * @date: 2023/4/3
  */
-@EnableConfigurationProperties(LaoCatMinioConfig.class)
+@EnableConfigurationProperties({LaoCatMinioConfig.class})
+@AllArgsConstructor
 public class LaoCatMinioAutoConfigurer {
-    private final LaoCatMinioConfig minioConfig;
 
-    @Autowired
-    public LaoCatMinioAutoConfigurer(LaoCatMinioConfig minioConfig) {
-        this.minioConfig = minioConfig;
-    }
+    private final LaoCatMinioConfig minioConfig;
 
     @Bean
     @ConditionalOnMissingBean(LaoCatMinio.class)
     @ConditionalOnProperty(name = "minio.url")
     public LaoCatMinio minio() {
-        return new LaoCatMinio(minioConfig.getUrl(),minioConfig.getAccessKey(),minioConfig.getSecretKey());
+        return new LaoCatMinio(minioConfig.getUrl(), minioConfig.getAccessKey(), minioConfig.getSecretKey());
     }
 }

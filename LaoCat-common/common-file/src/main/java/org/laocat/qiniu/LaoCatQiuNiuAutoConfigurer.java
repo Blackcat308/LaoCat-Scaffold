@@ -11,14 +11,13 @@ import org.springframework.context.annotation.Bean;
  * @author: LaoCat
  * @date: 2023/4/3
  */
-@EnableConfigurationProperties(LaoCatQiuNiuConfig.class)
+@EnableConfigurationProperties({LaoCatQiuNiuConfig.class})
 public class LaoCatQiuNiuAutoConfigurer {
-    private final LaoCatQiuNiuConfig qiuNiuConfig;
+
 
     @Autowired
-    public LaoCatQiuNiuAutoConfigurer(LaoCatQiuNiuConfig qiuNiuConfig) {
-        this.qiuNiuConfig = qiuNiuConfig;
-    }
+    private LaoCatQiuNiuConfig qiuNiuConfig;
+
 
     @Bean
     @ConditionalOnMissingBean(LaoCatQiuNiu.class)

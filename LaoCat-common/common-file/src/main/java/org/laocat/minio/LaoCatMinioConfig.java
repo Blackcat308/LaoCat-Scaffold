@@ -2,12 +2,14 @@ package org.laocat.minio;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * @description: minio配置
  * @author: LaoCat
  * @date: 2023/4/3
  */
+@Primary
 @Configuration
 @ConfigurationProperties(prefix = "minio")
 public class LaoCatMinioConfig {

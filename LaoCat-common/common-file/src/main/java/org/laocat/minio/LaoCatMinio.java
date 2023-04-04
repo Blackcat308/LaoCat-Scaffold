@@ -20,8 +20,8 @@ import java.util.concurrent.TimeUnit;
  * @author: LaoCat
  * @date: 2023/4/3
  */
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 public class LaoCatMinio implements InitializingBean {
     private final String url;
     private final String accessKey;
@@ -74,28 +74,13 @@ public class LaoCatMinio implements InitializingBean {
      * @returnType: java.util.Optional<io.minio.messages.Bucket>
      */
     @SneakyThrows
-    public List<Bucket> buckets(String bucket) {
+    public List<Bucket> buckets() {
         return minioClient.listBuckets();
     }
 
 
     /***************************************  bucket ↑  |  object ↓  ************************************************/
 
-    /**
-     * @description: 上传已知文件大小
-     * @author: LaoCat
-     * @date: 2023/4/3
-     * @returnType: void
-     */
-    @SneakyThrows
-    public void upload(String bucket, String object, InputStream in) {
-        PutObjectArgs args = PutObjectArgs.builder()
-                .bucket(bucket)
-                .object(object)
-                .stream(in, in.available(), -1)
-                .build();
-        minioClient.putObject(args);
-    }
 
     /**
      * @description: 上传已知文件大小与文件类型
@@ -104,12 +89,12 @@ public class LaoCatMinio implements InitializingBean {
      * @returnType: void
      */
     @SneakyThrows
-    public void upload(String bucket, String object, InputStream in, String objectType) {
+    public void upload(String bucket, String object, InputStream in, long fileSize, String contentType) {
         PutObjectArgs args = PutObjectArgs.builder()
                 .bucket(bucket)
                 .object(object)
-                .stream(in, in.available(), -1)
-                .contentType(objectType)
+                .stream(in, fileSize, -1)
+                .contentType(contentType)
                 .build();
         minioClient.putObject(args);
     }
@@ -148,7 +133,7 @@ public class LaoCatMinio implements InitializingBean {
      * @returnType: void
      */
     @SneakyThrows
-    public void downloadObject(String bucket, String object, String fileName) {
+    public void downloadObject(String bucket, String object,String fileName) {
 
         minioClient.downloadObject(DownloadObjectArgs
                 .builder()

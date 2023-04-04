@@ -15,6 +15,7 @@
         <module>LaoCat-user</module>
         <module>LaoCat-api</module>
         <module>LaoCat-job</module>
+        <module>LaoCat-file</module>
     </modules>
 
     <developers>
@@ -58,6 +59,7 @@
 
         <minio.version>8.5.0</minio.version>
         <qiniu.version>7.8.0</qiniu.version>
+        <okhttp3.version>4.10.0</okhttp3.version>
         <xxl-job.version>2.3.1</xxl-job.version>
         <druid.version>1.2.9</druid.version>
         <mybatis-plus.version>3.3.2</mybatis-plus.version>

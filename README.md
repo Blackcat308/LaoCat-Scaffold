@@ -25,6 +25,7 @@ LaoCat Spring Cloud 脚手架
 * nacos 2.0.1
 * xxl-job 2.3.0
 * minio
+* 七牛云
 
 ### 监控
 * prometheus 2.39.1
