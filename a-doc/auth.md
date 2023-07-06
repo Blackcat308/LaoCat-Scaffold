@@ -11,21 +11,21 @@
 - 3.访问授权登录路径 (前提用户模块已启动、redis已启动、且配置正常)
 
 ```shell
-http://127.0.0.1:1011/login
 # 或者
-http://127.0.0.1:2000/LaoCat-auth/login
+http://127.0.0.1:2000/laocat_auth/login
 ```
 
 - 4.输入账号密码后，默认账号密码都为 laocat (前提是你同步了我得sql语句)，请求授权地址如下。
 
 ```shell
-http://127.0.0.1:1011/authentication
 # 获取
-http://127.0.0.1:2000/LaoCat-auth/authentication
+http://127.0.0.1:2000/laocat_auth/authentication
 ```
+
 ![img_2.png](img_2.png)
 
 token会在下方显示出来，方便复制粘贴到postman测试。
+
 - 5.查看redis
 
 ![img_3.png](img_3.png)

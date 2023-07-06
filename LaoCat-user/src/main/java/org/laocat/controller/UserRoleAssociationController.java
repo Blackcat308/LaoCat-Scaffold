@@ -32,7 +32,7 @@ public class UserRoleAssociationController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<Boolean>
      */
     @PostMapping
-    @ApiOperation(value = "新建用户与角色关联关系",notes = "新建用户与角色关联关系")
+    @ApiOperation(value = "新建用户与角色关联关系", notes = "新建用户与角色关联关系")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Boolean> createUserRole(@Valid @RequestBody UserRoleAssociationReq userRoleAssociation) {
         return userRoleAssociationService.createUserRole(userRoleAssociation) > 0 ? ResponseEntity.success() : ResponseEntity.fail();
@@ -45,7 +45,7 @@ public class UserRoleAssociationController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<?>
      */
     @DeleteMapping("{userId}")
-    @ApiOperation(value = "解绑所有",notes = "解绑所有")
+    @ApiOperation(value = "解绑所有", notes = "解绑所有")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteUserRoleAll(@PathVariable String userId) {
         return userRoleAssociationService.deleteUserRoleAll(userId) > 0 ? ResponseEntity.success() : ResponseEntity.fail();
@@ -58,7 +58,7 @@ public class UserRoleAssociationController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<?>
      */
     @DeleteMapping("{userId}/{roleId}")
-    @ApiOperation(value = "解绑某一角色",notes = "解绑某一角色")
+    @ApiOperation(value = "解绑某一角色", notes = "解绑某一角色")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteUserRole(@PathVariable String userId, @PathVariable String roleId) {
         return userRoleAssociationService.deleteUserRole(userId, roleId) > 0 ? ResponseEntity.success() : ResponseEntity.fail();
@@ -71,7 +71,7 @@ public class UserRoleAssociationController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<?>
      */
     @GetMapping("/userRoleByUserId")
-    @ApiOperation(value = "根据userid获取所有角色[Inner]",notes = "根据userid获取所有角色[Inner]")
+    @ApiOperation(value = "根据userid获取所有角色[Inner]", notes = "根据userid获取所有角色[Inner]")
     public List<UserRole> deleteUserRole(@RequestParam String userId) {
         return userRoleAssociationService.selectUserRolesByUserId(userId);
     }

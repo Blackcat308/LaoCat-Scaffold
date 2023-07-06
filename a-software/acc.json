@@ -1,1 +1,7 @@
-{"url":"http://127.0.0.1:9000","accessKey":"FtciMIDpg1zFuRuT","secretKey":"zAySpjKisMaPZD6KAOjUA5digqC0StCI","api":"s3v4","path":"auto"}
+{
+  "url": "http://127.0.0.1:9000",
+  "accessKey": "FtciMIDpg1zFuRuT",
+  "secretKey": "zAySpjKisMaPZD6KAOjUA5digqC0StCI",
+  "api": "s3v4",
+  "path": "auto"
+}

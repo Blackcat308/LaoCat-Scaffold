@@ -47,15 +47,16 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.4.2</spring-boot.version>
-        <spring-cloud.version>2020.0.2</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
-        <hutool-version>5.5.8</hutool-version>
+        <spring-boot.version>2.6.13</spring-boot.version>
+        <spring-cloud.version>2021.0.5</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
+        <hutool-version>5.8.20</hutool-version>
         <mybatis-spring-boot-starter.version>2.1.4</mybatis-spring-boot-starter.version>
-        <knife4j.version>3.0.2</knife4j.version>
-        <swagger.version>1.6.2</swagger.version>
-        <nacos.version>2.0.1</nacos.version>
-        <fastjson.version>2.0.8</fastjson.version>
+        <spring-fox.verison>3.0.0</spring-fox.verison>
+        <knife4j.version>2.0.8</knife4j.version>
+        <nacos.version>2.2.1</nacos.version>
+        <fastjson.version>2.0.20</fastjson.version>
+        <jackson.version>2.14.2</jackson.version>
 
         <minio.version>8.5.0</minio.version>
         <qiniu.version>7.8.0</qiniu.version>
@@ -125,6 +126,7 @@
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis-spring-boot-starter.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-micro-spring-boot-starter</artifactId>
@@ -146,8 +148,8 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
         <dependency>
@@ -172,6 +174,32 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-context</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${spring-fox.verison}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

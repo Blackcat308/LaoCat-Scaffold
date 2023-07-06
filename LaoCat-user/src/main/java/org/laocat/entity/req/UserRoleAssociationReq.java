@@ -14,7 +14,7 @@ import java.util.List;
  * @date: 2022/6/28
  */
 @Data
-@ApiModel(value="用户与角色创建请求类")
+@ApiModel(value = "用户与角色创建请求类")
 public class UserRoleAssociationReq {
 
     @NotBlank(message = "用户不能为空")

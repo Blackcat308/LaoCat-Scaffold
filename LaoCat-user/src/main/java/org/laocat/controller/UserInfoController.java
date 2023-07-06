@@ -37,7 +37,7 @@ public class UserInfoController {
      * @description 根据用户名获取用户信息
      */
     @GetMapping("userInfoByUserName")
-    @ApiOperation(value = "根据用户名获取用户信息",notes = "根据用户名获取用户信息")
+    @ApiOperation(value = "根据用户名获取用户信息", notes = "根据用户名获取用户信息")
     public UserInfo loadUserInfoByUserName(@RequestParam String username) {
         return userInfoService.loadUserInfoByUserName(username);
     }
@@ -49,7 +49,7 @@ public class UserInfoController {
      * @description 新增用户 == 注册用户
      */
     @PostMapping("register")
-    @ApiOperation(value = "注册用户",notes = "注册用户")
+    @ApiOperation(value = "注册用户", notes = "注册用户")
     public ResponseEntity<?> register(@Valid @RequestBody UserInfo userInfo) {
         if (Objects.nonNull(this.loadUserInfoByUserName(userInfo.getUsername()))) {
             throw new UserAlreadyExistException(USER_ALREADY_EXIST);
@@ -66,7 +66,7 @@ public class UserInfoController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity
      */
     @GetMapping
-    @ApiOperation(value = "获取用户信息",notes = "获取用户信息")
+    @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<UserInfoDetailVO> selectUserInfoByToken() {
         return ResponseEntity.success(userInfoService.selectUserInfoByToken());

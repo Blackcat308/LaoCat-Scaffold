@@ -9,7 +9,10 @@
     </sql>
 
     <sql id="userRoleField">
-        ur.id,ur.role_name,ur.role_code,ur.gmt_time,ur.modify_time
+        ur
+        .
+        id
+        ,ur.role_name,ur.role_code,ur.gmt_time,ur.modify_time
     </sql>
 
     <insert id="createUserRole">
@@ -54,11 +57,11 @@
 
     <select id="selectUserRolesByUserId" resultType="org.laocat.entity.UserRole">
         SELECT
-            <include refid="userRoleField"/>
+        <include refid="userRoleField"/>
         FROM
-            user_role_association ura
-                INNER JOIN user_role ur ON ura.role_id = ur.id
+        user_role_association ura
+        INNER JOIN user_role ur ON ura.role_id = ur.id
         WHERE
-            ura.user_id = #{userId}
+        ura.user_id = #{userId}
     </select>
 </mapper>

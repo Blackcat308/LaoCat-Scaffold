@@ -7,6 +7,7 @@ import org.laocat.core.exception.PasswordErrException;
 import org.laocat.user.feign.UserInfoFeignClient;
 import org.laocat.user.vo.UserInfoVO;
 import org.laocat.user.vo.UserRoleVO;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -63,12 +64,16 @@ public class UserServiceImpl implements UserDetailsService {
                 .id(userInfo.getId())
                 .username(userInfo.getUsername())
                 .password(userInfo.getPassword())
-                .roles(
+                .authorities(
                         userInfoFeignClient.loadUserRoleByUserId(userInfo.getId())
                                 .stream()
-                                .map(UserRoleVO::getRoleCode)
-                                .collect(Collectors.toList())
+                                .map(userRole -> new SimpleGrantedAuthority(userRole.getRoleCode()))
+                                .collect(Collectors.toSet())
                 )
+                .accountNonExpired(true)
+                .accountNonLocked(true)
+                .credentialsNonExpired(true)
+                .enabled(true)
                 .build();
     }
 

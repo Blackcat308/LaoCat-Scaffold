@@ -27,12 +27,12 @@ public class BaseController {
      */
     @InitBinder
     public void globalInitBinder(WebDataBinder webDataBinder) {
-        webDataBinder.registerCustomEditor(Date.class,new CustomDateEditor(new CustomDateFormat(),true));
+        webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(new CustomDateFormat(), true));
     }
 
 
     /**
-     * @description:  拦截异常
+     * @description: 拦截异常
      * @author: LaoCat
      * @date: 2022/6/27
      * @returnType: org.laocat.core.response.structure.ResponseEntity<?>

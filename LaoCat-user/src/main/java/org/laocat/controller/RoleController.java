@@ -32,7 +32,7 @@ public class RoleController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<Boolean>
      */
     @PostMapping
-    @ApiOperation(value = "新增角色",notes = "新增角色")
+    @ApiOperation(value = "新增角色", notes = "新增角色")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Boolean> createRole(@Valid @RequestBody UserRole userRole) {
         return roleService.createRole(userRole) ? ResponseEntity.success() : ResponseEntity.fail();
@@ -45,7 +45,7 @@ public class RoleController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<?>
      */
     @DeleteMapping
-    @ApiOperation(value = "删除角色",notes = "删除角色")
+    @ApiOperation(value = "删除角色", notes = "删除角色")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteRole(@Valid @RequestBody UserRole userRole) {
         return ResponseEntity.success();
@@ -58,7 +58,7 @@ public class RoleController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<?>
      */
     @PutMapping("/{roleId}/{roleName}")
-    @ApiOperation(value = "修改角色名称[code不可被修改且全局唯一]",notes = "修改角色名称[code不可被修改且全局唯一]")
+    @ApiOperation(value = "修改角色名称[code不可被修改且全局唯一]", notes = "修改角色名称[code不可被修改且全局唯一]")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> updateRole(@PathVariable String roleId, @PathVariable String roleName) {
         return roleService.updateRole(roleId, roleName) ? ResponseEntity.success() : ResponseEntity.fail();
@@ -68,10 +68,10 @@ public class RoleController {
      * @description: 查询角色列表
      * @author: LaoCat
      * @date: 2022/6/23
-     * @returnType: org.laocat.core.response.structure.ResponseEntity<List<UserRole>>
+     * @returnType: org.laocat.core.response.structure.ResponseEntity<List < UserRole>>
      */
     @GetMapping
-    @ApiOperation(value = "查询角色列表",notes = "查询角色列表")
+    @ApiOperation(value = "查询角色列表", notes = "查询角色列表")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<UserRole>> roles(UserRoleReq userRoleReq) {
         return ResponseEntity.success(roleService.roles(userRoleReq));

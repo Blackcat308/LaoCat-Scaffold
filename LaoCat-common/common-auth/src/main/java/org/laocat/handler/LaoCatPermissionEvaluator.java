@@ -35,7 +35,7 @@ public class LaoCatPermissionEvaluator implements PermissionEvaluator {
                 .filter(a -> StringUtils.equals(a.getAuthority(), customizeRole.toString())).collect(Collectors.toList());
 
         for (GrantedAuthority authority : grantedAuthorities) {
-            String[] pers = {"admin","custom"};
+            String[] pers = {"admin", "custom"};
             List<String> permissions = Arrays.asList(pers);
             // 遍历是否有存在的权限
             for (String permission : permissions) {

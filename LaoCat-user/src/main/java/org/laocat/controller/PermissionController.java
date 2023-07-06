@@ -32,7 +32,7 @@ public class PermissionController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<?>
      */
     @PostMapping
-    @ApiOperation(value = "增加权限",notes = "增加权限")
+    @ApiOperation(value = "增加权限", notes = "增加权限")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> createPermission(@Valid @RequestBody UserPermission permission) {
         return permissionService.createPermission(permission) ? ResponseEntity.success() : ResponseEntity.fail();
@@ -45,7 +45,7 @@ public class PermissionController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<?>
      */
     @DeleteMapping
-    @ApiOperation(value = "删除权限",notes = "删除权限")
+    @ApiOperation(value = "删除权限", notes = "删除权限")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deletePermission() {
         return ResponseEntity.success();
@@ -59,7 +59,7 @@ public class PermissionController {
      * @returnType: org.laocat.core.response.structure.ResponseEntity<List < UserPermission>>
      */
     @GetMapping
-    @ApiOperation(value = "查看权限列表",notes = "查看权限列表")
+    @ApiOperation(value = "查看权限列表", notes = "查看权限列表")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<UserPermission>> permissions(PermissionReq permissionReq) {
         return ResponseEntity.success(permissionService.permissions(permissionReq));

@@ -24,11 +24,11 @@ public class DispatchHandler {
      * @returnType: void
      */
     @XxlJob("testBar")
-    public void testBar() throws Exception{
+    public void testBar() throws Exception {
         log.info("Welcome to Cat Home");
 
         for (int i = 0; i < 5; i++) {
-            log.info("{}喵 ~ ",i);
+            log.info("{}喵 ~ ", i);
         }
     }
 

@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class LaoCatException extends RuntimeException{
+public abstract class LaoCatException extends RuntimeException {
 
     private String errMsg;
 

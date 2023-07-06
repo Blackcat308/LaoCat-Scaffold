@@ -5,7 +5,7 @@ package org.laocat.core.exception;
  * @author: LaoCat
  * @date: 2022/6/27
  */
-public class UserAlreadyExistException extends LaoCatException{
+public class UserAlreadyExistException extends LaoCatException {
 
     public UserAlreadyExistException(String message) {
         super(message);

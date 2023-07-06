@@ -25,7 +25,7 @@ public enum ResponseEntityEnum {
     /**
      * 失败
      */
-    FAIL("111111","fail"),
+    FAIL("111111", "fail"),
     /**
      * 未授权   无权限
      */

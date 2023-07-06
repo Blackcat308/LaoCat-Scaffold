@@ -29,7 +29,7 @@ import org.springframework.web.server.session.DefaultWebSessionManager;
  */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(jsr250Enabled = true,securedEnabled = true,prePostEnabled = true)
+@EnableGlobalMethodSecurity(jsr250Enabled = true, securedEnabled = true, prePostEnabled = true)
 public class ValidateSecurityCoreConfig extends WebSecurityConfigurerAdapter {
     /**
      * 失败处理器
@@ -54,7 +54,7 @@ public class ValidateSecurityCoreConfig extends WebSecurityConfigurerAdapter {
 
     private final UserServiceImpl userService;
 
-    public ValidateSecurityCoreConfig(AuthenticationFailureHandler authenticationFailureHandler, AuthenticationSuccessHandler authenticationSuccessHandler,LaoCatAccessDeniedHandler accessDeniedHandler,LaoCatLogoutHandler logoutHandler, AuthorizeConfigManager authorizeConfigManager, UserServiceImpl userService) {
+    public ValidateSecurityCoreConfig(AuthenticationFailureHandler authenticationFailureHandler, AuthenticationSuccessHandler authenticationSuccessHandler, LaoCatAccessDeniedHandler accessDeniedHandler, LaoCatLogoutHandler logoutHandler, AuthorizeConfigManager authorizeConfigManager, UserServiceImpl userService) {
         this.authenticationFailureHandler = authenticationFailureHandler;
         this.authenticationSuccessHandler = authenticationSuccessHandler;
         this.accessDeniedHandler = accessDeniedHandler;

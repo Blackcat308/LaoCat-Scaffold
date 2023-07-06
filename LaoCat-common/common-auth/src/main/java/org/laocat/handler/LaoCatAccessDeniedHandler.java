@@ -15,10 +15,10 @@ import java.io.IOException;
 import static org.laocat.constant.AuthConstant.CONTENT_TYPE;
 
 /**
- * @see AccessDeniedHandler
  * @description: 无权限返回处理器
  * @author: LaoCat
  * @date: 2022/6/24
+ * @see AccessDeniedHandler
  */
 @Component
 public class LaoCatAccessDeniedHandler implements AccessDeniedHandler {

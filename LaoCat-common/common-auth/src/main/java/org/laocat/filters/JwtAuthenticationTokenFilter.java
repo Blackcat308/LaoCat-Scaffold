@@ -1,6 +1,10 @@
 package org.laocat.filters;
 
+import cn.hutool.core.map.MapUtil;
 import com.alibaba.fastjson2.JSON;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.laocat.auth.JwtRedisEnum;
@@ -44,11 +48,15 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-    public JwtAuthenticationTokenFilter(JwtUtil jwtUtil, CoreAuthorizeConfigProvider coreAuthorizeConfigProvider, SecurityProperties securityProperties, RedisUtil redisUtil) {
+    private ObjectMapper objectMapper;
+
+    public JwtAuthenticationTokenFilter(JwtUtil jwtUtil, CoreAuthorizeConfigProvider coreAuthorizeConfigProvider,
+                                        SecurityProperties securityProperties, RedisUtil redisUtil, ObjectMapper objectMapper) {
         this.jwtUtil = jwtUtil;
         this.coreAuthorizeConfigProvider = coreAuthorizeConfigProvider;
         this.securityProperties = securityProperties;
         this.redisUtil = redisUtil;
+        this.objectMapper = objectMapper;
     }
 
     @Override

@@ -48,7 +48,7 @@ public class QiNiuFileHandler {
             qiNiuTemplate.upload(
                     String.join("",
                             IdUtil.objectId(), Objects.requireNonNull(filename).substring(filename.lastIndexOf("."))),
-                            file.getInputStream());
+                    file.getInputStream());
             return ResponseEntity.success();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,5 +1,6 @@
 ## nacos
-- 版本最好下载2.0.1 与项目匹配
+
+- 版本最好下载2.2.1 与项目匹配
 - 官网: https://nacos.io/zh-cn/
 - 下载地址: https://github.com/alibaba/nacos/releases
 
@@ -19,7 +20,7 @@
 
 - https://github.com/redis/redis/releases
 
-## mysql workbench 8.0ce  查看db设计用
+## mysql workbench 8.0ce 查看db设计用
 
 - https://github.com/microsoftarchive/redis/releases
 
@@ -31,7 +32,7 @@
 
 https://github.com/grafana/grafana/releases
 
-## minio 
+## minio
 
 https://github.com/minio/minio
 

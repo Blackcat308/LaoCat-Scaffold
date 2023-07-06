@@ -5,7 +5,7 @@ package org.laocat.core.exception;
  * @author: LaoCat
  * @date: 2022/6/27
  */
-public class PasswordErrException extends LaoCatException{
+public class PasswordErrException extends LaoCatException {
 
     public PasswordErrException(String message) {
         super(message);

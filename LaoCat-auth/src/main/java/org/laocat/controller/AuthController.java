@@ -36,37 +36,37 @@ public class AuthController {
      * @returnType: java.lang.String
      */
     @GetMapping("/login")
-    @ApiOperation(value = "跳转login登录页面",notes = "跳转login登录页面")
+    @ApiOperation(value = "跳转login登录页面", notes = "跳转login登录页面")
     public String login() {
         return "login";
     }
 
     /**
-     * @see SecurityExpressionRoot // #getAuthoritySet()
      * @description: 判断是否有admin角色
      * @author: LaoCat
      * @date: 2022/6/23
      * @returnType: org.laocat.core.response.structure.ResponseEntity<java.lang.String>
+     * @see SecurityExpressionRoot // #getAuthoritySet()
      */
     @GetMapping("/custom")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "判断是否有admin角色",notes = "判断是否有admin角色")
+    @ApiOperation(value = "判断是否有admin角色", notes = "判断是否有admin角色")
     public ResponseEntity<String> custom() {
         return ResponseEntity.success("您有admin权限！");
     }
 
     /**
-     * @see SecurityExpressionRoot // #getAuthoritySet()
      * @description: 判断是否有test角色
      * @author: LaoCat
      * @date: 2022/6/29
      * @returnType: org.laocat.core.response.structure.ResponseEntity<java.lang.String>
+     * @see SecurityExpressionRoot // #getAuthoritySet()
      */
     @GetMapping("/test")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_TEST')")
-    @ApiOperation(value = "判断是否有test角色",notes = "判断是否有test角色")
+    @ApiOperation(value = "判断是否有test角色", notes = "判断是否有test角色")
     public ResponseEntity<String> test() {
         return ResponseEntity.success("您有test权限！");
     }

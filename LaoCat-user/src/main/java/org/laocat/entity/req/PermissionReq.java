@@ -12,7 +12,7 @@ import java.util.Date;
  * @date: 2022/6/23
  */
 @Data
-@ApiModel(value="权限查询多条件请求类")
+@ApiModel(value = "权限查询多条件请求类")
 public class PermissionReq {
 
     /**

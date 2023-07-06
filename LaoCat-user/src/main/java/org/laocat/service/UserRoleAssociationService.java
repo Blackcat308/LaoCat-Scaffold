@@ -37,7 +37,7 @@ public interface UserRoleAssociationService {
      * @date: 2022/6/28
      * @returnType: List<UserRoleAssociation>
      */
-    UserRoleAssociation selectUserRoleAssociationByUserId(String userId,String roleId);
+    UserRoleAssociation selectUserRoleAssociationByUserId(String userId, String roleId);
 
     /**
      * @description: 解绑所有角色

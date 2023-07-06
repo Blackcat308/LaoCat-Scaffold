@@ -42,6 +42,6 @@ public class UserInfoFeignController implements UserInfoFeignClient {
      */
     @Override
     public List<UserRoleVO> loadUserRoleByUserId(String userId) {
-        return VoUtils.copy(userRoleAssociationService.selectUserRolesByUserId(userId),UserRoleVO.class);
+        return VoUtils.copy(userRoleAssociationService.selectUserRolesByUserId(userId), UserRoleVO.class);
     }
 }

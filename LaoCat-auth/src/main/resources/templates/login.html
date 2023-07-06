@@ -30,7 +30,8 @@
         </div>
     </div>
     <br>
-    <p>-----------------------------------------------------华丽的分割线--------------------------------------------------------</p>
+    <p>
+        -----------------------------------------------------华丽的分割线--------------------------------------------------------</p>
     <br>
     <div>
         <h3>检验角色是否有ADMIN权限</h3>
@@ -49,7 +50,8 @@
         </table>
     </div>
     <br>
-    <p>-----------------------------------------------------华丽的分割线--------------------------------------------------------</p>
+    <p>
+        -----------------------------------------------------华丽的分割线--------------------------------------------------------</p>
     <br>
     <div>
         <h3>检验角色是否有TEST权限</h3>
@@ -66,7 +68,8 @@
         </table>
     </div>
     <br>
-    <p>-----------------------------------------------------华丽的分割线--------------------------------------------------------</p>
+    <p>
+        -----------------------------------------------------华丽的分割线--------------------------------------------------------</p>
     <br>
     <div>
         <h3>退出登录</h3>
@@ -95,7 +98,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "/LaoCat-auth/authentication",
+            url: "/laocat_auth/authentication",
             data: {
                 "username": username,
                 "password": password
@@ -123,7 +126,7 @@
         }
         $.ajax({
             type: "GET",
-            url: "/LaoCat-auth/custom",
+            url: "/laocat_auth/custom",
             headers: {
                 "Authorization": token
             },
@@ -151,7 +154,7 @@
         }
         $.ajax({
             type: "GET",
-            url: "/LaoCat-auth/test",
+            url: "/laocat_auth/test",
             headers: {
                 "Authorization": token
             },
@@ -179,7 +182,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "/LaoCat-auth/logout",
+            url: "/laocat_auth/logout",
             headers: {
                 "Authorization": token
             },
@@ -198,30 +201,30 @@
     }
 
 
-    function copyBearer(val,id) {
+    function copyBearer(val, id) {
         var copyValue = val;
         console.log(val)
-        var clipboard = new Clipboard(id,{
+        var clipboard = new Clipboard(id, {
             text: function () {
                 return copyValue;
             }
         });
 
-        clipboard.on("success",function (e) {
+        clipboard.on("success", function (e) {
             alert('复制Bearer成功')
         })
     }
 
-    function copyToken(val,id) {
+    function copyToken(val, id) {
         var copyValue = val;
         console.log(val)
-        var clipboard = new Clipboard(id,{
+        var clipboard = new Clipboard(id, {
             text: function () {
                 return copyValue;
             }
         });
 
-        clipboard.on("success",function (e) {
+        clipboard.on("success", function (e) {
             alert('复制Token成功')
         })
     }

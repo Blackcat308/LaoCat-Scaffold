@@ -133,7 +133,7 @@ public class LaoCatMinio implements InitializingBean {
      * @returnType: void
      */
     @SneakyThrows
-    public void downloadObject(String bucket, String object,String fileName) {
+    public void downloadObject(String bucket, String object, String fileName) {
 
         minioClient.downloadObject(DownloadObjectArgs
                 .builder()

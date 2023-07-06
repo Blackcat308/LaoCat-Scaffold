@@ -5,7 +5,7 @@ package org.laocat.core.exception;
  * @author: LaoCat
  * @date: 2022/6/27
  */
-public class RoleCodeAlreadyExistException extends LaoCatException{
+public class RoleCodeAlreadyExistException extends LaoCatException {
 
     public RoleCodeAlreadyExistException(String message) {
         super(message);

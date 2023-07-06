@@ -23,7 +23,7 @@ public class AuthorController {
     private final JwtUtil jwtUtil;
 
     @GetMapping("author")
-    @ApiOperation(value = "获取jwt的payload部分",notes = "获取jwt的payload部分")
+    @ApiOperation(value = "获取jwt的payload部分", notes = "获取jwt的payload部分")
     public ResponseEntity<Object> author(@RequestParam String token) {
         return ResponseEntity.success(JSON.toJSON(jwtUtil.getClaimByToken(token)));
     }
