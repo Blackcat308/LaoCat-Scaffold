@@ -53,7 +53,7 @@
         <hutool-version>5.8.20</hutool-version>
         <mybatis-spring-boot-starter.version>2.1.4</mybatis-spring-boot-starter.version>
         <spring-fox.verison>3.0.0</spring-fox.verison>
-        <knife4j.version>2.0.8</knife4j.version>
+        <knife4j.version>3.0.3</knife4j.version>
         <nacos.version>2.2.1</nacos.version>
         <fastjson.version>2.0.20</fastjson.version>
         <jackson.version>2.14.2</jackson.version>
