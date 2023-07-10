@@ -18,7 +18,8 @@ public interface SwaggerSettingsConstant {
     String API_FROM_USER = "LaoCat-user-API";
     String API_FROM_JOB = "LaoCat-job-API";
     String API_FROM_FILE = "LaoCat-file-API";
-    String API_FROM_AUTH = "LaoCat-from-API";
+    String API_FROM_AUTH = "LaoCat-auth-API";
+    String API_FROM_FLOWABLE = "LaoCat-flowable-API";
     /**
      * 详情
      */

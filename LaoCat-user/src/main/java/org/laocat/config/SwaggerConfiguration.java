@@ -25,6 +25,7 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ import static org.laocat.core.constant.SwaggerSettingsConstant.ContactInfoConsta
  * @author LaoCat
  */
 @Configuration
-@EnableSwagger2WebMvc
+@EnableSwagger2
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfiguration {
 

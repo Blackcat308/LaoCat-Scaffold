@@ -1,4 +1,4 @@
-package org.laocat.file;
+package org.laocat.controller;
 
 import cn.hutool.core.util.IdUtil;
 import io.swagger.annotations.Api;

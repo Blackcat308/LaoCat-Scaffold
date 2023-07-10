@@ -44,7 +44,7 @@ import static org.laocat.core.constant.SwaggerSettingsConstant.ContactInfoConsta
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfiguration {
 
-    @Bean(value = API_FROM_AUTH)
+    @Bean(value = API_FROM_USER)
     @Order(value = 1)
     public Docket groupRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -57,8 +57,8 @@ public class SwaggerConfiguration {
 
     private ApiInfo groupApiInfo() {
         return new ApiInfoBuilder()
-                .title(API_FROM_AUTH)
-                .description(StrUtil.format(DESCRIPTION, API_FROM_AUTH))
+                .title(API_FROM_FLOWABLE)
+                .description(StrUtil.format(DESCRIPTION, API_FROM_FLOWABLE))
                 .contact(new Contact(AUTHOR, GITHUB_URL, EMAIL))
                 .version(GLOBAL_VERSION)
                 .build();
