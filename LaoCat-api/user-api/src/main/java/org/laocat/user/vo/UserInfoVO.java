@@ -31,4 +31,10 @@ public class UserInfoVO implements Serializable {
     @ApiModelProperty(value = "密码")
     private String password;
 
+    /**
+     * 手机号
+     */
+    @ApiModelProperty(value = "密码")
+    private String phone;
+
 }

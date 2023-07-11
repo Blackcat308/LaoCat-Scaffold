@@ -3,6 +3,7 @@ package org.laocat.core.controller;
 import org.laocat.core.exception.PasswordErrException;
 import org.laocat.core.exception.RoleCodeAlreadyExistException;
 import org.laocat.core.exception.UserAlreadyExistException;
+import org.laocat.core.exception.VerificationCodeErrException;
 import org.laocat.core.response.structure.ResponseEntity;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
@@ -37,7 +38,7 @@ public class BaseController {
      * @date: 2022/6/27
      * @returnType: org.laocat.core.response.structure.ResponseEntity<?>
      */
-    @ExceptionHandler({RoleCodeAlreadyExistException.class, UserAlreadyExistException.class, PasswordErrException.class})
+    @ExceptionHandler({RoleCodeAlreadyExistException.class, UserAlreadyExistException.class, PasswordErrException.class, VerificationCodeErrException.class})
     @ResponseBody
     public ResponseEntity<?> laoCatCustomExceptionHandler(Exception e) {
 

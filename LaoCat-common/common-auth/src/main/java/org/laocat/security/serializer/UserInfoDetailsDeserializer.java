@@ -41,9 +41,8 @@ public class UserInfoDetailsDeserializer extends JsonDeserializer<UserInfoDetail
         boolean credentialsNonExpired = readJsonNode(jsonNode, "credentialsNonExpired").asBoolean();
         boolean enabled = readJsonNode(jsonNode, "enabled").asBoolean();
 
-        UserInfoDetails result = new UserInfoDetails(id, username, password, authorities, accountNonExpired, credentialsNonExpired, accountNonLocked,
+        return new UserInfoDetails(id, username, password, authorities, accountNonExpired, credentialsNonExpired, accountNonLocked,
                 enabled);
-        return result;
     }
 
     private JsonNode readJsonNode(JsonNode jsonNode, String field) {

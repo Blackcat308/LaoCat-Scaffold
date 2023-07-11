@@ -43,6 +43,12 @@ public class UserInfo extends Model<UserInfo> implements Serializable {
     @ApiModelProperty(value = "密码")
     @NotBlank(message = "密码不能为空")
     private String password;
+    /**
+     * 密码
+     */
+    @ApiModelProperty(value = "手机号")
+    @NotBlank(message = "手机号不能为空")
+    private String phone;
 
     /**
      * 创建时间

@@ -34,6 +34,33 @@
         -----------------------------------------------------华丽的分割线--------------------------------------------------------</p>
     <br>
     <div>
+        <h3>验证码登录</h3>
+        <table>
+            <tr>
+                <td>手机号:</td>
+                <td><input name="phone" type="text" value="17316291312"></td>
+            </tr>
+            <tr>
+                <td>验证码:</td>
+                <td><input name="verificationCode" type="text" value="1234"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button onclick="loginSms()" type="button">登录</button>
+                    <button onclick="logout()" type="button">退出登录</button>
+                </td>
+            </tr>
+        </table>
+        <div>
+            <input type="text" id="smsToken" value="暂无token" style="width: 1500px">
+            <button onclick="copyToken($('#smsToken').val(),'#copy-sms-token')" type="button" id="copy-sms-token">复制token</button>
+        </div>
+    </div>
+    <br>
+    <p>
+        -----------------------------------------------------华丽的分割线--------------------------------------------------------</p>
+    <br>
+    <div>
         <h3>检验角色是否有ADMIN权限</h3>
         <input type="text" id="bearer" value="Bearer ">
         <button onclick="copyBearer($('#bearer').val(),'#copy-bearer')" type="button" id="copy-bearer">复制Bearer</button>
@@ -107,6 +134,35 @@
                 var token = "Bearer " + req.getResponseHeader("Authorization");
                 alert("登陆成功")
                 $("#token").val(token);
+            },
+            error: function (data, a, b) {
+                console.log(data.responseText);
+                alert("登陆失败")
+            }
+        });
+    }
+
+    /**
+     * 二维码登录
+     */
+    function loginSms() {
+        var phone = $("input[name=phone]").val();
+        var verificationCode = $("input[name=verificationCode]").val();
+        if (phone === "" || verificationCode === "") {
+            alert("用户名或密码不能为空");
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/laocat_auth/smsLogin",
+            data: {
+                "phone": phone,
+                "verificationCode": verificationCode
+            },
+            success: function (data, status, req) {
+                var token = "Bearer " + req.getResponseHeader("Authorization");
+                alert("登陆成功")
+                $("#smsToken").val(token);
             },
             error: function (data, a, b) {
                 console.log(data.responseText);

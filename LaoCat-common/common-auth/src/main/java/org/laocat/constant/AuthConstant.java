@@ -58,6 +58,11 @@ public interface AuthConstant {
     String REQ_PARAM_PASSWORD_KEY = "password";
 
     /**
+     * 请求验证码key
+     */
+    String REQ_PARAM_VERIFICATION_CODE_KEY = "verificationCode";
+
+    /**
      * 角色默认配置头
      */
     String DEFAULT_ROLE_PREFIX = "ROLE_";

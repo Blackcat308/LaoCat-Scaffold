@@ -48,6 +48,7 @@ public class CustomRedisConfig {
          *  If the serialization is only done by a trusted source, you can also enable default typing.
          * */
         mapper.registerModules(new UserInfoDetailsJackson2Module());
+        mapper.registerModules(new LaoCatSmsAuthenticationTokenJackson2Module());
         mapper.addMixIn(HashSet.class, HashSetMixin.class);
 
         SecurityJackson2Modules.enableDefaultTyping(mapper);

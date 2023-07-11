@@ -19,7 +19,9 @@ public interface UserInfoFeignClient {
     @GetMapping("userInfo/userInfoByUserName")
     UserInfoVO loadUserInfoByUserName(@RequestParam("username") String username);
 
-
     @GetMapping("userRole/userRoleByUserId")
     List<UserRoleVO> loadUserRoleByUserId(@RequestParam("userId") String userId);
+
+    @GetMapping("userInfo/userInfoByUserPhone")
+    UserInfoVO loadUserInfoByUserPhone(@RequestParam("phone") String phone);
 }

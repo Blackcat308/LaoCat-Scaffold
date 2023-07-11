@@ -11,5 +11,8 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     org.laocat.handler.LaoCatPermissionEvaluator,\
     org.laocat.permission.LaoCatPermissionAchieve,\
     org.laocat.handler.LaoCatAccessDeniedHandler,\
-    org.laocat.handler.LaoCatLogoutHandler
+    org.laocat.handler.LaoCatLogoutHandler,\
+    org.laocat.auth.service.sms.SmsUserServiceImpl,\
+    org.laocat.auth.service.sms.LaoCatSmsAuthenticationSecurityConfig,\
+    org.laocat.auth.service.sms.LaoCatSmsAuthenticationProvider
 

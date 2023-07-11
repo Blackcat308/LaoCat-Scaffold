@@ -12,4 +12,6 @@ public interface ErrMsgConstants {
     String USER_ALREADY_EXIST = "该用户已存在！";
 
     String PASSWORD_ERR = "密码不正确！";
+
+    String VERIFICATION_CODE_ERR = "验证码不正确！";
 }

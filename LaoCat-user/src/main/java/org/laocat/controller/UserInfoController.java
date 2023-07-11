@@ -72,4 +72,16 @@ public class UserInfoController {
         return ResponseEntity.success(userInfoService.selectUserInfoByToken());
     }
 
+    /**
+     * @return org.laocat.entity.UserInfo
+     * @author LaoCat
+     * @date 2022/6/15
+     * @description 根据用户手机号获取用户信息
+     */
+    @GetMapping("userInfoByUserPhone")
+    @ApiOperation(value = "根据用户名获取用户信息", notes = "根据用户名获取用户信息")
+    public UserInfo loadUserInfoByUserPhone(@RequestParam String phone) {
+        return userInfoService.loadUserInfoByUserPhone(phone);
+    }
+
 }

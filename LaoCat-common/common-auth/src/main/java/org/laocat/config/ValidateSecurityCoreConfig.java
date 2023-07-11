@@ -4,6 +4,10 @@ package org.laocat.config;
 import org.laocat.auth.MD5Util;
 import org.laocat.auth.manager.AuthorizeConfigManager;
 import org.laocat.auth.service.UserServiceImpl;
+import org.laocat.auth.service.sms.LaoCatSmsAuthenticationFilter;
+import org.laocat.auth.service.sms.LaoCatSmsAuthenticationProvider;
+import org.laocat.auth.service.sms.LaoCatSmsAuthenticationSecurityConfig;
+import org.laocat.auth.service.sms.SmsUserServiceImpl;
 import org.laocat.handler.LaoCatAccessDeniedHandler;
 import org.laocat.handler.LaoCatLogoutHandler;
 import org.laocat.handler.LaoCatPermissionEvaluator;
@@ -16,11 +20,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.web.server.session.DefaultWebSessionManager;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author LaoCat
@@ -53,16 +56,38 @@ public class ValidateSecurityCoreConfig extends WebSecurityConfigurerAdapter {
     private final AuthorizeConfigManager authorizeConfigManager;
 
     private final UserServiceImpl userService;
+    private final SmsUserServiceImpl smsUserService;
 
-    public ValidateSecurityCoreConfig(AuthenticationFailureHandler authenticationFailureHandler, AuthenticationSuccessHandler authenticationSuccessHandler, LaoCatAccessDeniedHandler accessDeniedHandler, LaoCatLogoutHandler logoutHandler, AuthorizeConfigManager authorizeConfigManager, UserServiceImpl userService) {
+    private final LaoCatSmsAuthenticationSecurityConfig smsAuthenticationSecurityConfig;
+
+    public ValidateSecurityCoreConfig(AuthenticationFailureHandler authenticationFailureHandler,
+                                      AuthenticationSuccessHandler authenticationSuccessHandler,
+                                      LaoCatAccessDeniedHandler accessDeniedHandler,
+                                      LaoCatLogoutHandler logoutHandler,
+                                      AuthorizeConfigManager authorizeConfigManager,
+                                      UserServiceImpl userService,
+                                      SmsUserServiceImpl smsUserService,
+                                      LaoCatSmsAuthenticationSecurityConfig smsAuthenticationSecurityConfig) {
         this.authenticationFailureHandler = authenticationFailureHandler;
         this.authenticationSuccessHandler = authenticationSuccessHandler;
         this.accessDeniedHandler = accessDeniedHandler;
         this.logoutHandler = logoutHandler;
         this.authorizeConfigManager = authorizeConfigManager;
         this.userService = userService;
+        this.smsUserService = smsUserService;
+        this.smsAuthenticationSecurityConfig = smsAuthenticationSecurityConfig;
     }
 
+    /**
+     * @description: 短信
+     * @author: LaoCat
+     * @date: 2023/7/11
+     * @returnType: org.laocat.auth.service.sms.LaoCatSmsAuthenticationProvider
+     */
+    @Bean
+    public LaoCatSmsAuthenticationProvider laoCatSmsAuthenticationProvider() {
+        return new LaoCatSmsAuthenticationProvider(smsUserService);
+    }
 
     /**
      * 注入身份管理器bean
@@ -91,6 +116,8 @@ public class ValidateSecurityCoreConfig extends WebSecurityConfigurerAdapter {
                         return encodedPassword.equals(MD5Util.encode((String) rawPassword));
                     }
                 });
+        // 注入短信验证码
+        auth.authenticationProvider(laoCatSmsAuthenticationProvider());
     }
 
     /**
@@ -109,7 +136,9 @@ public class ValidateSecurityCoreConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
+        http.apply(smsAuthenticationSecurityConfig)
+                .and()
+                .formLogin()
                 .loginProcessingUrl("/authentication")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)

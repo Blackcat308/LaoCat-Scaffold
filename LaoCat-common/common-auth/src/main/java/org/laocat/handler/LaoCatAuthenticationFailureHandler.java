@@ -5,6 +5,7 @@ import org.laocat.core.response.structure.ResponseEntity;
 import org.laocat.core.response.structure.ResponseEntityEnum;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import static org.laocat.constant.AuthConstant.CONTENT_TYPE;
  * @date 2022/6/15
  * @description 失败处理器
  */
+@Component
 public class LaoCatAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
     @Override

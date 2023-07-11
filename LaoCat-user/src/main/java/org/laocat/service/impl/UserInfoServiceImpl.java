@@ -81,5 +81,16 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         return userInfoDetail;
     }
 
+    /**
+     * @description: 根据用户名查询用户
+     * @author: LaoCat
+     * @date: 2023/7/11
+     * @returnType: org.laocat.entity.UserInfo
+     */
+    @Override
+    public UserInfo loadUserInfoByUserPhone(String phone) {
+        return this.getOne(new LambdaQueryWrapper<UserInfo>().eq(UserInfo::getPhone, phone));
+    }
+
 
 }

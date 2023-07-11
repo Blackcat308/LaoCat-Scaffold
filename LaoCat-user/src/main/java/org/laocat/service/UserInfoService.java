@@ -14,13 +14,14 @@ public interface UserInfoService extends IService<UserInfo> {
 
     /**
      * @param username
+     * @return UserInfo
      */
     UserInfo loadUserInfoByUserName(String username);
 
 
     /**
      * @param userInfo
-     * @return
+     * @return Boolean
      */
     Boolean register(UserInfo userInfo);
 
@@ -29,4 +30,11 @@ public interface UserInfoService extends IService<UserInfo> {
      * @return UserInfoDetailVO
      */
     UserInfoDetailVO selectUserInfoByToken();
+
+
+    /**
+     * @param phone
+     * @return UserInfo
+     */
+    UserInfo loadUserInfoByUserPhone(String phone);
 }

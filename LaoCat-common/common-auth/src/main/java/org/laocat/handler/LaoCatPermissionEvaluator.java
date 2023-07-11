@@ -1,7 +1,5 @@
 package org.laocat.handler;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.log.StaticLog;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
@@ -13,7 +11,6 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
