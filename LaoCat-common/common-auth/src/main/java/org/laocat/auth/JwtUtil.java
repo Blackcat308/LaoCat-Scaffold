@@ -4,12 +4,15 @@ import cn.hutool.core.codec.Base64;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.map.MapUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
 import org.laocat.config.SecurityProperties;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -52,7 +55,7 @@ public class JwtUtil {
      * @date 2022/6/15
      */
     public String getUsernameByToken(String token) {
-        return getClaimByToken(token).getSubject();
+        return JSONObject.parseObject(getClaimByToken(token).getSubject()).getString("username");
     }
 
     /**
@@ -117,10 +120,10 @@ public class JwtUtil {
      * @date 2022/6/15
      * @description 生成token  username + randomKey
      */
-    public String generateToken(String userName, String randomKey) {
+    public String generateToken(String userDetails, String randomKey) {
         Map<String, Object> claims = MapUtil.newHashMap();
         claims.put(securityProperties.getUniqueTag(), randomKey);
-        return doGenerateToken(claims, userName);
+        return doGenerateToken(claims, userDetails);
     }
 
 

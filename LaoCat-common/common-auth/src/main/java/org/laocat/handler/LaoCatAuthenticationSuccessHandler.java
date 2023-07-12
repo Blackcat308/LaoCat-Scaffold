@@ -47,7 +47,7 @@ public class LaoCatAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
 
-        final String token = jwtUtil.generateToken(username, randomKey);
+        final String token = jwtUtil.generateToken(JSON.toJSONString(userDetails), randomKey);
 
         this.judgingMultiplePeople(username);
 

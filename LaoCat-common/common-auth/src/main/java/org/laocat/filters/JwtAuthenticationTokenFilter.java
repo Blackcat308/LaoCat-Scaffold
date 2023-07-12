@@ -46,17 +46,14 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private final RedisUtil redisUtil;
 
-    private AntPathMatcher antPathMatcher = new AntPathMatcher();
-
-    private ObjectMapper objectMapper;
+    private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
     public JwtAuthenticationTokenFilter(JwtUtil jwtUtil, CoreAuthorizeConfigProvider coreAuthorizeConfigProvider,
-                                        SecurityProperties securityProperties, RedisUtil redisUtil, ObjectMapper objectMapper) {
+                                        SecurityProperties securityProperties, RedisUtil redisUtil) {
         this.jwtUtil = jwtUtil;
         this.coreAuthorizeConfigProvider = coreAuthorizeConfigProvider;
         this.securityProperties = securityProperties;
         this.redisUtil = redisUtil;
-        this.objectMapper = objectMapper;
     }
 
     @Override
